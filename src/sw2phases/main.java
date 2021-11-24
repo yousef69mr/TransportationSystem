@@ -27,7 +27,7 @@ public class main {
 							Driver d = new Driver();
 							d.setSystem(system);
 							while (true) {
-/*
+
 								System.out.println("Enter your Name");
 								String name = scan.next();
 								System.out.println("Enter your Phone Number");
@@ -40,14 +40,13 @@ public class main {
 								String id = scan.next();
 								System.out.println("Enter your Licence Number");
 								String licence = scan.next();
-								*/
 
-								d = (Driver) d.getAccount().signUp(d.getType(), "name", "01234569879", "oyyh@gmail.com", "0123", "30104130103779", "hkdgdljw");
+
+								d = (Driver) d.getAccount().signUp(d.getType(), name, phone, email, pass, id, licence);
 								//System.out.print(d.getAccount());
 								if (d.isValidInput()) {
 									//admin.verifyDriver(d);
-									//Driver c=system.getSpecificDriver(name, pass);
-									//c.DisplayData();
+
 									System.out.println("Account created successfully");
 									break;
 								}
@@ -57,7 +56,7 @@ public class main {
 							Client c = new Client();
 							c.setSystem(system);
 							while (true) {
-/*
+
 								System.out.println("Enter your Name");
 								String name = scan.next();
 								System.out.println("Enter your Phone Number");
@@ -66,8 +65,8 @@ public class main {
 								String email = scan.next();
 								System.out.println("Enter your Password");
 								String pass = scan.next();
-*/
-								c = (Client) c.getAccount().signUp(c.getType(), "ali", "01234569879", "oyyh@gmail.com", "2020", null, null);
+
+								c = (Client) c.getAccount().signUp(c.getType(),  name, phone, email, pass, null, null);
 								//System.out.print(d.getAccount());
 								if (c.isValidInput()) {
 
