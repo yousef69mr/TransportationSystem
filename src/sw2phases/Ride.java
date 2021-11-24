@@ -27,7 +27,7 @@ public class Ride {
 		setDriver(d);
 	}
 	*/
-	
+	// set the new ride in the the ArrayList in TransportationSystem class.
 	public void setRideSystem(TransportationSystem newSystem) {
 		if (system != newSystem) {
 			TransportationSystem old = system;
@@ -129,7 +129,7 @@ public class Ride {
 	int getRideNumber() {
 		return this.rideNumber;
 	}
-	
+	// Display all data about the Ride 
 	void displayRideData() {
 
 		System.out.println("Ride Number : #" +getRideNumber());
