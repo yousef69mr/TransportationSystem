@@ -169,7 +169,7 @@ public class Driver extends Users {
 
 		for(int i=0;i<favouriteAreas.size();i++) {
 			if(i==favouriteAreas.size()-1) {
-				System.out.print(favouriteAreas.get(i));
+				System.out.println(favouriteAreas.get(i));
 			}else {
 				System.out.print(favouriteAreas.get(i)+" -- ");
 			}
@@ -226,6 +226,15 @@ public class Driver extends Users {
 		
 		for(int i=0;i<r.size();i++) {
 			r.get(i).displayRatingData();
+		}
+	}
+
+	void displayRidesList() {
+		ArrayList<Ride> r=new ArrayList<Ride>(rides);
+		System.out.println("\nRides List:");
+
+		for(int i=0;i<r.size();i++) {
+			System.out.println(i+1+")"+r.get(i).getSource()+"-->"+r.get(i).getDestination()+" Client : "+r.get(i).getClient().getName() );
 		}
 	}
 

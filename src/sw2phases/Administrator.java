@@ -7,6 +7,8 @@ public class Administrator {
 	
 	Administrator(TransportationSystem system){
 		this.system=system;
+		setName("admin");
+		setPassword("admin");
 	}
 	
 	void setName(String n) {
@@ -37,11 +39,13 @@ public class Administrator {
 		if(system.getAllRequests().contains(d)) {
 			
 			addDriver(d);
+
 			system.getAllRequests().remove(d);
-			
+			System.out.println("This Driver has already been approved Successfully");
+
 		}else if(system.getAllDrivers().contains(d)) {
 			
-			System.out.println("This Driver has already been approved");
+			System.out.println("This Driver has already been approved before !!x");
 		}else {
 			System.out.println("This Driver didn't requested to join the System");
 		}
@@ -53,10 +57,6 @@ public class Administrator {
 		}else {
 			System.out.println("Driver isn't existed");
 		}
-	}
-
-	void suspendAccount(Users u) {
-		suspendUser(u);
 	}
 
 	public void addDriver(Driver d) {
@@ -88,6 +88,7 @@ public class Administrator {
 			system.getAllSuspended().add(u);
 			system.getAllConfirmed().remove(u);
 			system.getAllUsers().remove(u);
+			System.out.println("Account is suspended");
 		} else {
 			System.out.println("Account isn't existed");
 		}
@@ -98,6 +99,7 @@ public class Administrator {
 			system.getAllConfirmed().add(u);
 			system.getAllSuspended().remove(u);
 			system.getAllUsers().add(u);
+			System.out.println("Account returned back online");
 		} else {
 			System.out.println("Account isn't suspended");
 		}
@@ -105,6 +107,11 @@ public class Administrator {
 
 	void deleteAccount(Users u) {
 		system.removeUser(u);
+	}
+
+	void DisplayData(){
+		System.out.println("Name : "+getName());
+		System.out.println("Password : "+getPassword());
 	}
 	
 }

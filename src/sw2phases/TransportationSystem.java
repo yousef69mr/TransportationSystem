@@ -149,6 +149,7 @@ public class TransportationSystem {
 		Driver d=new Driver(name,phone,email,pass,id,licence);
 		d.setSystem(this);
 		if(d.isValidInput()) {
+		//	users.add(d);
 			if(!requests.contains(d)) {
 				requests.add(d);
 			}
@@ -163,7 +164,7 @@ public class TransportationSystem {
 		c.setSystem(this);
 		if(c.isValidInput()) {
 			if(!users.contains(c) ||!clients.contains(c)) {
-				addUser(c);
+				//addUser(c);
 				admin.addClient(c);
 			}
 			return c;
@@ -172,7 +173,7 @@ public class TransportationSystem {
 			return null;
 		}
 	}
-		
+		/*
 	void suspendUser(Users u) {
 		if(confirmed.contains(u)) {
 			suspended.add(u);
@@ -182,7 +183,7 @@ public class TransportationSystem {
 			System.out.println("Account isn't existed");
 		}
 	}
-	
+
 	void returnFromSuspended(Users u) {
 		if(suspended.contains(u)) {
 			confirmed.add(u);
@@ -192,17 +193,44 @@ public class TransportationSystem {
 			System.out.println("Account isn't suspended");
 		}
 	}
+
 	
-	
-	
+	*/
 	void displayDrivers() {
 		for(int i=0;i<drivers.size();i++) {
 			drivers.get(i).DisplayData();
 		}
 	}
-	
-	
-	
+
+	void displayUsers() {
+		ArrayList<Users> user=new ArrayList<Users>(users);
+
+		System.out.println("\nActive Users:");
+
+		for(int i=0;i<user.size();i++) {
+			System.out.println(i+1+")"+user.get(i).getName());
+
+		}
+	}
+
+	void showPendingDrivers() {
+
+		System.out.println("\nPending Drivers:");
+
+		for(int i=0;i<requests.size();i++) {
+			System.out.println(i+1+")"+requests.get(i).getName());
+		}
+	}
+
+	void showSuspendedUsers() {
+		System.out.println("\nSuspended Drivers:");
+
+		for(int i=0;i<suspended.size();i++) {
+			System.out.println(i+1+")"+suspended.get(i).getName());
+		}
+	}
+
+
 	// login method 
 	Driver getSpecificDriver(String name,String pass) {
 		
@@ -227,7 +255,7 @@ public class TransportationSystem {
 
 	// login method
 	Users getSpecificUser(String name,String pass) {
-		ArrayList<Users> u =new ArrayList<Users>(users.size());
+		ArrayList<Users> u =new ArrayList<Users>(users);
 		for(int i=0;i<u.size();i++){
 			if(u.get(i).getName().equalsIgnoreCase(name)&&u.get(i).getPassword().equals(pass)) {
 				return u.get(i);
@@ -264,20 +292,21 @@ public class TransportationSystem {
 	void ShowClientAccountMethodsMenu() {
 
 		System.out.println("A:Show Client Information ");
-		System.out.println("B:Add Playground ");
-		System.out.println("C:Show My Playgrounds ");
-		System.out.println("D:Delete Account ");
+		System.out.println("B:Request Ride ");
+		System.out.println("C:Rate a Driver ");
+		System.out.println("D:Show All Ratings of a Driver ");
+		System.out.println("E:Delete Account ");
 	}
 
 	void ShowAdminAccountMethodsMenu() {
 
 		System.out.println("A:Show Admin Information ");
-		System.out.println("B:Check balance ");
-		System.out.println("C:Transfer Funds ");
-		System.out.println("D:Delete Playground ");
-		System.out.println("E:Suspend Playground ");
-		System.out.println("F:Approve Playground ");
-		System.out.println("G:Delete Account ");
+		System.out.println("B:Approve Driver");
+		System.out.println("C:Show All Users");
+		System.out.println("D:Suspend User");
+		System.out.println("E: Reactivate a suspended User");
+		System.out.println("F:Delete User ");
+
 	}
 
 	void ShowDriverAccountMethodsMenu() {

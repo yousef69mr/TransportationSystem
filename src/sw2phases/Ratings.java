@@ -2,12 +2,12 @@ package sw2phases;
 
 public class Ratings {
 	
-	private int rate;
+	private float rate;
 	private Client client;
 	private Driver driver;
 	
 	
-	Ratings(int r,Client c,Driver d){
+	Ratings(float r,Client c,Driver d){
 		
 		setRate(r);
 		setClient(c);
@@ -41,15 +41,15 @@ public class Ratings {
 		return this.client;
 	}
 	
-	void setRate(int r) {
-		if(r>=0&&r<=5) {
+	void setRate(float r) {
+		if(r>=1&&r<=5) {
 			this.rate =r;
 		}else {
-			System.out.println("Out of Range [0 to 5]");
+			System.out.println("Out of Range [1 to 5]");
 		}
 	}
 	
-	int getRate() {
+	float getRate() {
 		return this.rate;
 	}
 	

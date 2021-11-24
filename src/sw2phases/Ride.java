@@ -15,7 +15,6 @@ public class Ride {
 		setSource(src);
 		setDestination(dest);
 		//setRidePrice(0f);
-		
 		setClient(c);
 		LinkRideToDriver();
 		rideNumber++;
@@ -130,6 +129,7 @@ public class Ride {
 	}
 	
 	void displayRideData() {
+
 		System.out.println("Ride Number : #" +getRideNumber());
 		System.out.println("Source Location : " +getSource());
 		System.out.println("Destination Location : " +getDestination());

@@ -25,13 +25,19 @@ public class Client extends Users{
 	
 	void requestRide(String src,String dest) {
 		ride=new Ride(this,src,dest);
+		ride.setRideOwner(getSystem());
 		super.getSystem().addRide(ride);
 		ride.getDriver().addRide(ride);
-		ride.setRideOwner(super.getSystem());
+		if(ride.getDriver()!=null){
+			System.out.print("The Request is Completed Successfully");
+			ride.getDriver().DisplayData();
+		}else{
+			System.out.print("No available drivers in your area");
+		}
 
 	}
 	
-	void rateDriver(int rateRange) {
+	void rateDriver(float rateRange) {
 		
 		if(ride!=null) {
 			rate =new Ratings(rateRange,this,ride.getDriver());
