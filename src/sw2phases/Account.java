@@ -34,7 +34,7 @@ public class Account {
 		if(type.equalsIgnoreCase("driver")) {
 			return user.getSystem().getSpecificUser(name,pass);
 		}else if(type.equalsIgnoreCase("client")){
-			return user.getSystem().getSpecificClient(name,pass);
+			return user.getSystem().getSpecificUser(name,pass);
 		}else{
 			return null;
 		}

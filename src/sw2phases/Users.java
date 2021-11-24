@@ -121,6 +121,6 @@ public abstract class  Users {
 		}
 	}
 	*/
-	abstract void DisplayData();
+	abstract void DisplayAllData();
 	
 }

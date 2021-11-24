@@ -9,9 +9,13 @@ public class main {
 		TransportationSystem system=TransportationSystem.getInstance("uber");
 		Administrator admin=system.getAdmin();
 		Scanner scan=new Scanner(System.in);
+
+		System.out.println("****************************************************");
+		System.out.println("****    Welcome to our Transportation System    ****");
+		System.out.println("****************************************************");
 		
 		while(true) {
-
+			
 			system.ShowMainMenu();
 			System.out.println("Enter Choice");
 			char input =scan.next().charAt(0);
@@ -42,16 +46,21 @@ public class main {
 								String licence = scan.next();
 
 
-								d = (Driver) d.getAccount().signUp(d.getType(), name, phone, email, pass, id, licence);
+							//	d = (Driver) d.getAccount().signUp(d.getType(),  "name", "01234567896", "sd@x.com", "0123", "01234569871230", "licence");
+								d = (Driver) d.getAccount().signUp(d.getType(),  name,phone, email, pass, id, licence);
+
 								//System.out.print(d.getAccount());
 								if (d.isValidInput()) {
+
 									//admin.verifyDriver(d);
+									//d.addFavouriteArea("milano");
 
 									System.out.println("Account created successfully");
 									break;
 								}
 							}
 							break;
+
 						case ('B'):
 							Client c = new Client();
 							c.setSystem(system);
@@ -66,7 +75,9 @@ public class main {
 								System.out.println("Enter your Password");
 								String pass = scan.next();
 
-								c = (Client) c.getAccount().signUp(c.getType(),  name, phone, email, pass, null, null);
+								//c = (Client) c.getAccount().signUp(c.getType(),  "ali", "01234567896", "sd@x.com", "2020", null, null);
+								c = (Client) c.getAccount().signUp(c.getType(), name, phone, email, pass, null, null);
+
 								//System.out.print(d.getAccount());
 								if (c.isValidInput()) {
 
@@ -188,7 +199,7 @@ public class main {
 								switch (driverChoice) {
 									case ('A'):
 
-										driver.DisplayData();
+										driver.DisplayAllData();
 										break;
 
 									case ('B'):
@@ -198,17 +209,24 @@ public class main {
 
 									case ('C'):
 
-										System.out.println("Enter Area");
+										System.out.println("Enter Area Name");
 										String area = scan.next();
 										driver.addFavouriteArea(area);
 										break;
 
 									case ('D'):
 
-										driver.displayFavouriteAreas();
+										System.out.println("Enter Area Name");
+										area = scan.next();
+										driver.removeFavouriteArea(area);
 										break;
 
 									case ('E'):
+
+										driver.displayFavouriteAreas();
+										break;
+
+									case ('F'):
 
 										driver.displayRidesList();
 										System.out.println("Select Number of Selected Ride ");
@@ -253,7 +271,7 @@ public class main {
 								switch (clientChoice) {
 									case ('A'):
 
-										client.DisplayData();
+										client.DisplayAllData();
 										break;
 
 									case ('B'):
@@ -262,7 +280,7 @@ public class main {
 										String src = scan.next();
 										System.out.println("Enter your Destination Location");
 										String destination = scan.next();
-										client.requestRide(src, destination);
+										client.requestRide(client,src, destination);
 										break;
 
 									case ('C'):

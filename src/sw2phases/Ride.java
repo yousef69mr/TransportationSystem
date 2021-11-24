@@ -16,6 +16,8 @@ public class Ride {
 		setDestination(dest);
 		//setRidePrice(0f);
 		setClient(c);
+		setRideSystem(client.getSystem());
+
 		LinkRideToDriver();
 		rideNumber++;
 	}
@@ -26,7 +28,7 @@ public class Ride {
 	}
 	*/
 	
-	public void setRideOwner(TransportationSystem newSystem) {
+	public void setRideSystem(TransportationSystem newSystem) {
 		if (system != newSystem) {
 			TransportationSystem old = system;
 			system = newSystem;
@@ -136,10 +138,10 @@ public class Ride {
 		System.out.println("Price : "+getRidePrice());
 		System.out.println("//////////////////////");
 		System.out.println("Client INfo :");
-		client.DisplayData();
+		client.DisplaySpecificData();
 		System.out.println("//////////////////////");
 		System.out.println("Driver INfo :");
-		driver.DisplayData();
+		driver.DisplaySpecificData();
 		System.out.println("//////////////////////");
 	}
 	

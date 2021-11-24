@@ -23,16 +23,16 @@ public class Client extends Users{
 		setAccount();
 	}
 	
-	void requestRide(String src,String dest) {
-		ride=new Ride(this,src,dest);
-		ride.setRideOwner(getSystem());
+	void requestRide(Client c,String src,String dest) {
+		ride=new Ride(c,src,dest);
+		ride.setRideSystem(c.getSystem());
 		super.getSystem().addRide(ride);
 		ride.getDriver().addRide(ride);
 		if(ride.getDriver()!=null){
-			System.out.print("The Request is Completed Successfully");
-			ride.getDriver().DisplayData();
+			System.out.print("The Request is Completed Successfully\n");
+			ride.getDriver().DisplaySpecificData();
 		}else{
-			System.out.print("No available drivers in your area");
+			System.out.print("No available drivers in your area\n");
 		}
 
 	}
@@ -52,7 +52,7 @@ public class Client extends Users{
 	
 	
 	@Override
-	void DisplayData() {
+	void DisplayAllData() {
 
 		System.out.println("Name : "+super.getName());
 		System.out.println("Email : "+super.getEmail());
@@ -61,6 +61,13 @@ public class Client extends Users{
 		System.out.println("Account Type : "+super.getType());
 	}
 
+
+	void DisplaySpecificData(){
+		System.out.println("Name : "+super.getName());
+		System.out.println("Email : "+super.getEmail());
+		System.out.println("Phone Number : "+super.getPhoneNumber());
+		System.out.println("Account Type : "+super.getType());
+	}
 
 	@Override
 	void setType() {
@@ -76,7 +83,7 @@ public class Client extends Users{
 		return this.rate;
 	}
 
-	
+	/*
 	Client login(String name, String pass) {
 		if(!super.getSystem().getAllSuspended().contains(super.getSystem().getSpecificClient(name, pass))) {
 			if(super.getSystem().getSpecificClient(name,pass)!=null) {
@@ -89,6 +96,6 @@ public class Client extends Users{
 			System.out.println("Your Account is Suspended !!");
 			return null;
 		}
-		
-	}
+
+	}*/
 }

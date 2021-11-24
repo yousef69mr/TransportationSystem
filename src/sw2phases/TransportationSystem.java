@@ -62,11 +62,11 @@ public class TransportationSystem {
 	//relation with Ride  class
 	public void addRide(Ride r) {
 		rides.add(r);
-		r.setRideOwner(this);
+		r.setRideSystem(this);
 	}
 	public void removeRide(Ride r) {
 		rides.remove(r);
-		r.setRideOwner(null);
+		r.setRideSystem(null);
 	}
 
 	///////////////////////////
@@ -198,7 +198,7 @@ public class TransportationSystem {
 	*/
 	void displayDrivers() {
 		for(int i=0;i<drivers.size();i++) {
-			drivers.get(i).DisplayData();
+			drivers.get(i).DisplayAllData();
 		}
 	}
 
@@ -230,7 +230,7 @@ public class TransportationSystem {
 		}
 	}
 
-
+/*
 	// login method 
 	Driver getSpecificDriver(String name,String pass) {
 		
@@ -252,7 +252,7 @@ public class TransportationSystem {
 			}
 			return null;
 		}
-
+*/
 	// login method
 	Users getSpecificUser(String name,String pass) {
 		ArrayList<Users> u =new ArrayList<Users>(users);
@@ -314,8 +314,9 @@ public class TransportationSystem {
 		System.out.println("A:Show Driver Information ");
 		System.out.println("B:Show My Ratings ");
 		System.out.println("C:Add Favourite Area ");
-		System.out.println("D:Show My Favourite Areas ");
-		//System.out.println("D:My Booking ");
+		System.out.println("D:Remove Favourite Area ");
+		System.out.println("E:Show My Favourite Areas ");
+		System.out.println("F:Make offer for My Rides ");
 	}
 	
 }

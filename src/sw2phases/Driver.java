@@ -113,7 +113,7 @@ public class Driver extends Users {
 	
 	
 	@Override
-	void DisplayData() {
+	void DisplayAllData() {
 		System.out.println("Name : "+super.getName());
 		System.out.println("Email : "+super.getEmail());
 		System.out.println("Password : "+super.getPassword());
@@ -123,6 +123,16 @@ public class Driver extends Users {
 		System.out.println("Account Type : "+super.getType());
 		System.out.println("Average Ratings : "+ getAverageRatings());
 		
+		displayFavouriteAreas();
+	}
+
+	void DisplaySpecificData() {
+		System.out.println("Driver's Name : "+super.getName());
+		System.out.println("Phone Number : "+super.getPhoneNumber());
+		System.out.println("Licence Number : "+ getDriverLicence());
+		System.out.println("Account Type : "+super.getType());
+		System.out.println("Average Ratings : "+ getAverageRatings());
+
 		displayFavouriteAreas();
 	}
 
@@ -186,7 +196,7 @@ public class Driver extends Users {
 		}
 		return true;
 	}
-	
+	/*
 
 	Driver login(String name, String pass) {
 		if(!super.getSystem().getAllSuspended().contains(super.getSystem().getSpecificClient(name, pass))) {
@@ -202,7 +212,7 @@ public class Driver extends Users {
 			return null;
 		}
 	}
-	
+	*/
 	void showRideSourceMatchesFavouriteAreaOfDriver() {
 		ArrayList<Ride> selectedRides=super.getSystem().getRideSourceMatchesFavouriteAreaOfDriver(this,super.getSystem().getAllRides());
 		for(int i=0;i<selectedRides.size();i++) {
@@ -234,7 +244,7 @@ public class Driver extends Users {
 		System.out.println("\nRides List:");
 
 		for(int i=0;i<r.size();i++) {
-			System.out.println(i+1+")"+r.get(i).getSource()+"-->"+r.get(i).getDestination()+" Client : "+r.get(i).getClient().getName() );
+			System.out.println(i+1+")"+" Ride No.: "+r.get(i).getRideNumber()+"\n"+r.get(i).getSource()+"-->"+r.get(i).getDestination()+" Client : "+r.get(i).getClient().getName() );
 		}
 	}
 
