@@ -224,7 +224,17 @@ public class TransportationSystem {
 			}
 			return null;
 		}
-		
+
+	// login method
+	Users getSpecificUser(String name,String pass) {
+		ArrayList<Users> u =new ArrayList<Users>(users.size());
+		for(int i=0;i<u.size();i++){
+			if(u.get(i).getName().equalsIgnoreCase(name)&&u.get(i).getPassword().equals(pass)) {
+				return u.get(i);
+			}
+		}
+		return null;
+	}
 		ArrayList<Ride> getRideSourceMatchesFavouriteAreaOfDriver(Driver drive,ArrayList<Ride> ride){
 			ArrayList<Ride> selectedRides=new ArrayList<Ride>();
 			
@@ -235,5 +245,48 @@ public class TransportationSystem {
 			}
 			return selectedRides;
 		}
+
+
+	void ShowMainMenu() {
+
+		System.out.print("A:Create a new account              ");
+		System.out.println("B: Existing Account");
+	}
+
+	void ShowUserTypeMenu() {
+
+		System.out.print("A:Driver              ");
+		System.out.println("B:Client");
+
+	}
+
+
+	void ShowClientAccountMethodsMenu() {
+
+		System.out.println("A:Show Client Information ");
+		System.out.println("B:Add Playground ");
+		System.out.println("C:Show My Playgrounds ");
+		System.out.println("D:Delete Account ");
+	}
+
+	void ShowAdminAccountMethodsMenu() {
+
+		System.out.println("A:Show Admin Information ");
+		System.out.println("B:Check balance ");
+		System.out.println("C:Transfer Funds ");
+		System.out.println("D:Delete Playground ");
+		System.out.println("E:Suspend Playground ");
+		System.out.println("F:Approve Playground ");
+		System.out.println("G:Delete Account ");
+	}
+
+	void ShowDriverAccountMethodsMenu() {
+
+		System.out.println("A:Show Driver Information ");
+		System.out.println("B:Show My Ratings ");
+		System.out.println("C:Add Favourite Area ");
+		System.out.println("D:Show My Favourite Areas ");
+		//System.out.println("D:My Booking ");
+	}
 	
 }

@@ -123,7 +123,6 @@ public class Driver extends Users {
 		System.out.println("Account Type : "+super.getType());
 		System.out.println("Average Ratings : "+ getAverageRatings());
 		
-		System.out.print("Favourite Areas : ");
 		displayFavouriteAreas();
 	}
 
@@ -150,12 +149,15 @@ public class Driver extends Users {
 		if(!favouriteAreas.contains(area.toLowerCase())) {
 			
 			favouriteAreas.add(area.toLowerCase());
+			System.out.println("Area is added successfully");
 		}
 	}
 	
 	void removeFavouriteArea(String area) {
 		if(favouriteAreas.contains(area.toLowerCase())) {
+
 			favouriteAreas.remove(area.toLowerCase());
+			System.out.println("Area is removed successfully");
 		}
 	}
 	
@@ -163,6 +165,8 @@ public class Driver extends Users {
 	
 	
 	void displayFavouriteAreas() {
+		System.out.print("Favourite Areas : ");
+
 		for(int i=0;i<favouriteAreas.size();i++) {
 			if(i==favouriteAreas.size()-1) {
 				System.out.print(favouriteAreas.get(i));

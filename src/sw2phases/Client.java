@@ -5,7 +5,15 @@ public class Client extends Users{
 	private Ride ride;
 	private Ratings rate;
 	
-	
+
+	Client(){
+		setName("");
+		setPassword("");
+		setType();
+
+		setAccount();
+	}
+
 	Client(String name,String phone,String email,String pass){
 		setName(name);
 		setEmail(email);
@@ -19,6 +27,8 @@ public class Client extends Users{
 		ride=new Ride(this,src,dest);
 		super.getSystem().addRide(ride);
 		ride.getDriver().addRide(ride);
+		ride.setRideOwner(super.getSystem());
+
 	}
 	
 	void rateDriver(int rateRange) {
@@ -27,6 +37,7 @@ public class Client extends Users{
 			rate =new Ratings(rateRange,this,ride.getDriver());
 			ride.getDriver().addRating(rate);
 			ride.getDriver().setAverageRatings();
+
 			System.out.println("Driver is rated Successfully");
 		}else {
 			System.out.println("you have to make a ride first to rate its driver");

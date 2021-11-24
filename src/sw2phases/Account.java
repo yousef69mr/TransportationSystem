@@ -1,6 +1,8 @@
 package sw2phases;
 
 
+import java.util.ArrayList;
+
 public class Account {
 
 	private String userName;
@@ -24,6 +26,18 @@ public class Account {
 
 		this.userName=n;
 
+	}
+
+
+
+	Users login(String type,String name,String pass){
+		if(type.equalsIgnoreCase("driver")) {
+			return user.getSystem().getSpecificDriver(name,pass);
+		}else if(type.equalsIgnoreCase("client")){
+			return user.getSystem().getSpecificClient(name,pass);
+		}else{
+			return null;
+		}
 	}
 
 	Users signUp(String type,String name,String phone,String email,String pass,String id,String licence){
