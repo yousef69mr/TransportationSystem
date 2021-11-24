@@ -71,7 +71,7 @@ public class TransportationSystem {
 
 	///////////////////////////
 	
-	
+	/*
 	//relation with Driver  class
 		public void addDriver(Driver d) {
 			drivers.add(d);
@@ -98,7 +98,7 @@ public class TransportationSystem {
 				users.remove(c);
 				c.setSystem(null);
 			}
-		
+		*/
 			//////////////////////////
 	
 	Administrator getAdmin() {
@@ -119,7 +119,15 @@ public class TransportationSystem {
 	ArrayList<Driver> getAllDrivers(){
 		return drivers;
 	}
-	
+
+	ArrayList<Client> getAllClients(){
+		return clients;
+	}
+
+	Set<Users> getAllUsers(){
+		return users;
+	}
+
 	ArrayList<Users> getAllRequests(){
 		return requests;
 	}
@@ -139,6 +147,7 @@ public class TransportationSystem {
 	
 	Driver createDriverAccount(String name,String phone,String email,String pass,String id,String licence) {
 		Driver d=new Driver(name,phone,email,pass,id,licence);
+		d.setSystem(this);
 		if(d.isValidInput()) {
 			if(!requests.contains(d)) {
 				requests.add(d);
@@ -151,10 +160,11 @@ public class TransportationSystem {
 	
 	Client createClientAccount(String name,String phone,String email,String pass) {
 		Client c=new Client(name,phone,email,pass);
+		c.setSystem(this);
 		if(c.isValidInput()) {
 			if(!users.contains(c) ||!clients.contains(c)) {
 				addUser(c);
-				addClient(c);
+				admin.addClient(c);
 			}
 			return c;
 		}

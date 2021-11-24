@@ -15,7 +15,16 @@ public class Driver extends Users {
 	private Set<Ratings> rates;
 	
 	
-	
+	Driver(){
+		setName("");
+		setPassword("");
+		this.nationalID="";
+		setDriverLicence("");
+
+		setType();
+
+		setAccount();
+	}
 	
 	public Driver(String name,String phone,String email,String pass,String id,String licence) {
 		setName(name);

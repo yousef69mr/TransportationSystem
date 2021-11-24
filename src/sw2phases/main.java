@@ -17,8 +17,11 @@ public class main {
 			switch(input) {
 			
 				case('A'):
-					Driver d;
+					Driver d = new Driver();
+					d.setSystem(system);
 					while(true) {
+						System.out.println("Enter Account Type");
+						String type =scan.next();
 						System.out.println("Enter your Name");
 						String name =scan.next();
 						System.out.println("Enter your Phone Number");
@@ -31,18 +34,19 @@ public class main {
 						String id =scan.next();
 						System.out.println("Enter your Licence Number");
 						String licence =scan.next();
-						d=system.createDriverAccount(name, phone, email, pass,id,licence);
-						System.out.print(d.getAccount());
-						if(system.createDriverAccount(name, phone, email, pass,id,licence)!=null) {
-							admin.verifyDriver(d);
-							d=system.getSpecificDriver(name, pass);
+						d=(Driver)d.getAccount().signUp(type,name,phone,email,pass,id,licence);
+						//System.out.print(d.getAccount());
+						if(d.isValidInput()) {
+							//admin.verifyDriver(d);
+							//Driver c=system.getSpecificDriver(name, pass);
+							//c.DisplayData();
 							System.out.println("Account created successfully");
 							break;
 						}
 					}
 				
 					//admin.approveDriver(d);
-					
+
 					String area =scan.next();
 					d.addFavouriteArea(area);
 					area =scan.next();

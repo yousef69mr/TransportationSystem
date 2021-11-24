@@ -36,7 +36,7 @@ public class Administrator {
 	void verifyDriver(Driver d) {
 		if(system.getAllRequests().contains(d)) {
 			
-			system.addDriver(d);
+			addDriver(d);
 			system.getAllRequests().remove(d);
 			
 		}else if(system.getAllDrivers().contains(d)) {
@@ -49,16 +49,60 @@ public class Administrator {
 	
 	void deleteSpecificDriver(Driver d) {
 		if(system.getAllDrivers().contains(d)) {
-			system.removeDriver(d);
+			removeDriver(d);
 		}else {
 			System.out.println("Driver isn't existed");
 		}
 	}
-	
+
 	void suspendAccount(Users u) {
-		system.suspendUser(u);
+		suspendUser(u);
 	}
-	
+
+	public void addDriver(Driver d) {
+		system.getAllDrivers().add(d);
+		system.getAllUsers().add(d);
+		d.setSystem(getSystem());
+	}
+
+	public void removeDriver(Driver d) {
+		system.getAllDrivers().remove(d);
+		system.getAllUsers().remove(d);
+		d.setSystem(null);
+	}
+
+	public void addClient(Client c) {
+		system.getAllClients().add(c);
+		system.getAllUsers().add(c);
+		c.setSystem(getSystem());
+	}
+
+	public void removeClient(Client c) {
+		system.getAllClients().remove(c);
+		system.getAllUsers().remove(c);
+		c.setSystem(null);
+	}
+
+	void suspendUser(Users u) {
+		if (system.getAllConfirmed().contains(u)) {
+			system.getAllSuspended().add(u);
+			system.getAllConfirmed().remove(u);
+			system.getAllUsers().remove(u);
+		} else {
+			System.out.println("Account isn't existed");
+		}
+	}
+
+	void returnFromSuspended(Users u) {
+		if (system.getAllSuspended().contains(u)) {
+			system.getAllConfirmed().add(u);
+			system.getAllSuspended().remove(u);
+			system.getAllUsers().add(u);
+		} else {
+			System.out.println("Account isn't suspended");
+		}
+	}
+
 	void deleteAccount(Users u) {
 		system.removeUser(u);
 	}
