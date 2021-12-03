@@ -205,6 +205,14 @@ public class TransportationSystem {
 	void displayUsers() {
 		ArrayList<Users> user=new ArrayList<Users>(users);
 
+		for(int i=0;i<user.size();i++) {
+
+			if(user.get(i).getName().equalsIgnoreCase("")){
+				user.remove(user.get(i));
+			}
+
+		}
+
 		System.out.println("\nActive Users:");
 
 		for(int i=0;i<user.size();i++) {
