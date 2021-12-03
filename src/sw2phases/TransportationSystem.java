@@ -71,34 +71,6 @@ public class TransportationSystem {
 
 	///////////////////////////
 	
-	/*
-	//relation with Driver  class
-		public void addDriver(Driver d) {
-			drivers.add(d);
-			users.add(d);
-			d.setSystem(this);
-		}
-		public void removeDriver(Driver d) {
-			drivers.remove(d);
-			users.remove(d);
-			d.setSystem(null);
-		}
-	
-		//////////////////////////
-		
-
-		//relation with Client  class
-			public void addClient(Client c) {
-				clients.add(c);
-				users.add(c);
-				c.setSystem(this);
-			}
-			public void removeClient(Client c) {
-				clients.remove(c);
-				users.remove(c);
-				c.setSystem(null);
-			}
-		*/
 			//////////////////////////
 	
 	Administrator getAdmin() {
@@ -144,7 +116,7 @@ public class TransportationSystem {
 		return rides;
 	}
 	
-	
+	//function to create account for the driver
 	Driver createDriverAccount(String name,String phone,String email,String pass,String id,String licence) {
 		Driver d=new Driver(name,phone,email,pass,id,licence);
 		d.setSystem(this);
@@ -159,6 +131,7 @@ public class TransportationSystem {
 		}
 	}
 	
+	//function to create account for the client
 	Client createClientAccount(String name,String phone,String email,String pass) {
 		Client c=new Client(name,phone,email,pass);
 		c.setSystem(this);
@@ -173,29 +146,7 @@ public class TransportationSystem {
 			return null;
 		}
 	}
-		/*
-	void suspendUser(Users u) {
-		if(confirmed.contains(u)) {
-			suspended.add(u);
-			confirmed.remove(u);
-			users.remove(u);
-		}else {
-			System.out.println("Account isn't existed");
-		}
-	}
-
-	void returnFromSuspended(Users u) {
-		if(suspended.contains(u)) {
-			confirmed.add(u);
-			suspended.remove(u);
-			users.add(u);
-		}else {
-			System.out.println("Account isn't suspended");
-		}
-	}
-
-	
-	*/
+		
 	void displayDrivers() {
 		for(int i=0;i<drivers.size();i++) {
 			drivers.get(i).DisplayAllData();
@@ -238,29 +189,6 @@ public class TransportationSystem {
 		}
 	}
 
-/*
-	// login method 
-	Driver getSpecificDriver(String name,String pass) {
-		
-		for(int i=0;i<drivers.size();i++){
-			if(drivers.get(i).getName().equalsIgnoreCase(name)&&drivers.get(i).getPassword().equals(pass)) {
-				return drivers.get(i);
-			}
-		}
-		return null;
-	}
-	
-	// login method 
-		Client getSpecificClient(String name,String pass) {
-			
-			for(int i=0;i<clients.size();i++){
-				if(clients.get(i).getName().equalsIgnoreCase(name)&&clients.get(i).getPassword().equals(pass)) {
-					return clients.get(i);
-				}
-			}
-			return null;
-		}
-*/
 	// login method
 	Users getSpecificUser(String name,String pass) {
 		ArrayList<Users> u =new ArrayList<Users>(users);

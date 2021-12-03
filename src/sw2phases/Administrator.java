@@ -35,6 +35,7 @@ public class Administrator {
 		return this.system;
 	}
 	
+	// function to to add the drver in the system
 	void verifyDriver(Driver d) {
 		if(system.getAllRequests().contains(d)) {
 			
@@ -51,6 +52,7 @@ public class Administrator {
 		}
 	}
 	
+	//function to delete driver from system 
 	void deleteSpecificDriver(Driver d) {
 		if(system.getAllDrivers().contains(d)) {
 			removeDriver(d);
@@ -82,6 +84,8 @@ public class Administrator {
 		system.getAllUsers().remove(c);
 		c.setSystem(null);
 	}
+	
+	// function to suspend user account
 
 	void suspendUser(Users u) {
 		if (system.getAllConfirmed().contains(u)) {
@@ -93,7 +97,7 @@ public class Administrator {
 			System.out.println("Account isn't existed");
 		}
 	}
-
+           //function to return from suspend for user account
 	void returnFromSuspended(Users u) {
 		if (system.getAllSuspended().contains(u)) {
 			system.getAllConfirmed().add(u);

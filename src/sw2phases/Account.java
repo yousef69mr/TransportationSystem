@@ -28,7 +28,7 @@ public class Account {
 
 	}
 
-
+// login method for all users
 
 	Users login(String type,String name,String pass){
 		if(type.equalsIgnoreCase("driver")) {
@@ -39,7 +39,8 @@ public class Account {
 			return null;
 		}
 	}
-
+	
+// sign up method for all users
 	Users signUp(String type,String name,String phone,String email,String pass,String id,String licence){
 		if(type.equalsIgnoreCase("driver")) {
 			return user.getSystem().createDriverAccount(name, phone, email, pass, id, licence);

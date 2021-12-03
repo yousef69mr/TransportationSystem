@@ -99,6 +99,7 @@ public class Driver extends Users {
 		return this.offer;
 	}
 	*/
+	//check if the Entry area is favouritre area for the driver 
 	boolean isFavourite(Ride r,ArrayList<String> favourite) {
 		
 		for(int i=0;i<favourite.size();i++) {
@@ -113,6 +114,7 @@ public class Driver extends Users {
 	
 	
 	@Override
+	//Display the Driver Data
 	void DisplayAllData() {
 		System.out.println("Name : "+super.getName());
 		System.out.println("Email : "+super.getEmail());
@@ -197,7 +199,7 @@ public class Driver extends Users {
 		return true;
 	}
 	/*
-
+       
 	Driver login(String name, String pass) {
 		if(!super.getSystem().getAllSuspended().contains(super.getSystem().getSpecificClient(name, pass))) {
 			
@@ -213,6 +215,7 @@ public class Driver extends Users {
 		}
 	}
 	*/
+	// show source Ride that matches with favourite area of Driver
 	void showRideSourceMatchesFavouriteAreaOfDriver() {
 		ArrayList<Ride> selectedRides=super.getSystem().getRideSourceMatchesFavouriteAreaOfDriver(this,super.getSystem().getAllRides());
 		for(int i=0;i<selectedRides.size();i++) {
