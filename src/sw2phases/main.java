@@ -16,14 +16,14 @@ public class main {
 		
 		while(true) {
 
-			system.ShowMainMenu();
+			system.getUI().ShowMainMenu();
 			System.out.println("Enter Choice");
 			char input =scan.next().charAt(0);
 			
 			switch(input) {
 
 				case ('A'):
-					system.ShowUserTypeMenu();
+					system.getUI().ShowUserTypeMenu();
 					char input2 = scan.next().charAt(0);
 					switch (input2) {
 
@@ -32,22 +32,70 @@ public class main {
 							d.setSystem(system);
 							while (true) {
 
-								System.out.println("Enter your Name");
-								String name = scan.next();
-								System.out.println("Enter your Phone Number");
-								String phone = scan.next();
-								System.out.println("Enter your Email");
-								String email = scan.next();
+								String name="";
+								while (!d.getUtility().verifyName(name)){
+									System.out.println("Enter your Name");
+									 name = scan.next();
+
+									 if(!d.getUtility().verifyName(name)){
+										 System.out.println("Invalid Format !!");
+									 }
+
+								}
+
+								String phone="";
+								while (!d.getUtility().verifyPhoneNumber(phone)) {
+									System.out.println("Enter your Phone Number");
+									phone = scan.next();
+									if(!d.getUtility().verifyPhoneNumber(phone)){
+										System.out.println("Invalid Phone Number");
+									}
+								}
+
+								String email="";
+								while(!d.getUtility().verifyEmail(email)) {
+									System.out.println("Enter your Email");
+									email = scan.next();
+
+									if (!d.getUtility().verifyEmail(email)) {
+										System.out.println("Wrong Email Format");
+									}
+								}
+
 								System.out.println("Enter your Password");
 								String pass = scan.next();
-								System.out.println("Enter your National ID");
-								String id = scan.next();
+
+								String id="";
+								while(!d.getUtility().verifyNationalID(id)) {
+									System.out.println("Enter your National ID");
+									 id = scan.next();
+									 if(!d.getUtility().verifyNationalID(id)){
+										 System.out.println("Invalid National ID !!");
+									 }
+								}
+
 								System.out.println("Enter your Licence Number");
 								String licence = scan.next();
 
+								d.setName(name);
+								d.setEmail(email);
+								d.setPassword(pass);
+								d.setPhoneNumber(phone);
+								d.setNationalID(id);
+								d.setDriverLicence(licence);
 
-							//	d = (Driver) d.getAccount().signUp(d.getType(),  "name", "01234567896", "sd@x.com", "0123", "01234569871230", "licence");
-								d = (Driver) d.getAccount().signUp(d.getType(),  name,phone, email, pass, id, licence);
+/*
+								d.setName("ezz");
+								d.setEmail("sd@x.com");
+								d.setPassword("0123");
+								d.setPhoneNumber("01234567896");
+								d.setNationalID("01234569871230");
+								d.setDriverLicence("licence");
+*/
+
+								//d = (Driver) d.getAccount().signUp(d.getType(),  "name", "01234567896", "sd@x.com", "0123", "01234569871230", "licence");
+								d=(Driver) d.signUp(d);
+							//	d = (Driver) d.getAccount().signUp(d.getType(),  name,phone, email, pass, id, licence);
 
 								//System.out.print(d.getAccount());
 								if (d.isValidInput()) {
@@ -66,17 +114,54 @@ public class main {
 							c.setSystem(system);
 							while (true) {
 
-								System.out.println("Enter your Name");
-								String name = scan.next();
-								System.out.println("Enter your Phone Number");
-								String phone = scan.next();
-								System.out.println("Enter your Email");
-								String email = scan.next();
+								String name="";
+								while (!c.getUtility().verifyName(name)){
+									System.out.println("Enter your Name");
+									name = scan.next();
+
+									if(!c.getUtility().verifyName(name)){
+										System.out.println("Invalid Format !!");
+									}
+
+								}
+
+								String phone="";
+								while (!c.getUtility().verifyPhoneNumber(phone)) {
+									System.out.println("Enter your Phone Number");
+									phone = scan.next();
+									if(!c.getUtility().verifyPhoneNumber(phone)){
+										System.out.println("Invalid Phone Number");
+									}
+								}
+
+								String email="";
+								while(!c.getUtility().verifyEmail(email)) {
+									System.out.println("Enter your Email");
+									email = scan.next();
+
+									if (!c.getUtility().verifyEmail(email)) {
+										System.out.println("Wrong Email Format");
+									}
+								}
+
 								System.out.println("Enter your Password");
 								String pass = scan.next();
 
+								c.setName(name);
+								c.setEmail(email);
+								c.setPassword(pass);
+								c.setPhoneNumber(phone);
+
+								/*
+								c.setName("ali");
+								c.setEmail("sd@x.com");
+								c.setPassword("2020");
+								c.setPhoneNumber("01234567896");
+								*/
+
+								c=(Client) c.signUp(c);
 								//c = (Client) c.getAccount().signUp(c.getType(),  "ali", "01234567896", "sd@x.com", "2020", null, null);
-								c = (Client) c.getAccount().signUp(c.getType(), name, phone, email, pass, null, null);
+								//c = (Client) c.getAccount().signUp(c.getType(), name, phone, email, pass, null, null);
 
 								//System.out.print(d.getAccount());
 								if (c.isValidInput()) {
@@ -108,13 +193,14 @@ public class main {
 						}
 						System.out.println("Incorrect Name or Password \nTry Again :(");
 
+
 					}
 
 					if (name.equalsIgnoreCase(admin.getName())&&pass.equalsIgnoreCase(admin.getPassword())){
 						//admin  info
 						System.out.println("Welcome "+admin.getName());
 						while (true) {
-							system.ShowAdminAccountMethodsMenu();
+							system.getUI().ShowAdminAccountMethodsMenu();
 							System.out.println("Enter your Choice");
 
 							char adminChoice = scan.next().charAt(0);
@@ -188,11 +274,11 @@ public class main {
 							Driver driver=new Driver();
 							driver.setSystem(system);
 
-							driver=(Driver) driver.getAccount().login(system.getSpecificUser(name,pass).getType(),name,pass);
+							driver=(Driver) driver.login(system.getSpecificUser(name,pass));
 							System.out.println("///////////////////////////////////////////");
 							System.out.println("Welcome "+driver.getName());
 							while (true) {
-								system.ShowDriverAccountMethodsMenu();
+								system.getUI().ShowDriverAccountMethodsMenu();
 								System.out.println("Enter your Choice");
 
 								char driverChoice = scan.next().charAt(0);
@@ -235,7 +321,8 @@ public class main {
 										float offer = scan.nextInt();
 										ArrayList<Ride> ride=new ArrayList<Ride>(driver.getAllRides());
 										//ride.get(num2-1).setRidePrice(offer);
-										driver.setPriceForSpecificRide(offer,ride.get(num2-1).getRideNumber());
+										//driver.setPriceForSpecificRide(offer,ride.get(num2-1).getRideNumber());
+										driver.setPriceForSpecificRide(offer,ride.get(num2-1));
 										break;
 								}
 
@@ -260,11 +347,11 @@ public class main {
 							Client client=new Client();
 							client.setSystem(system);
 
-							client=(Client) client.getAccount().login(system.getSpecificUser(name,pass).getType(),name,pass);
+							client=(Client) client.login(system.getSpecificUser(name,pass));
 							System.out.println("///////////////////////////////////////////");
 							System.out.println("Welcome "+client.getName());
 							while (true) {
-								system.ShowClientAccountMethodsMenu();
+								system.getUI().ShowClientAccountMethodsMenu();
 								System.out.println("Enter your Choice");
 
 								char clientChoice = scan.next().charAt(0);
@@ -280,14 +367,14 @@ public class main {
 										String src = scan.next();
 										System.out.println("Enter your Destination Location");
 										String destination = scan.next();
-										client.requestRide(client,src, destination);
+										client.getRideController().requestRide(client,src, destination);
 										break;
 
 									case ('C'):
 
 										System.out.println("Enter Rate Number [1 to 5]");
 										float rate = scan.nextInt();
-										client.rateDriver(rate);
+										client.getRateController().rateDriver(rate);
 										break;
 
 									case ('D'):

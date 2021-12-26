@@ -28,18 +28,8 @@ public class Account {
 
 	}
 
-// login method for all users
 
-	Users login(String type,String name,String pass){
-		if(type.equalsIgnoreCase("driver")) {
-			return user.getSystem().getSpecificUser(name,pass);
-		}else if(type.equalsIgnoreCase("client")){
-			return user.getSystem().getSpecificUser(name,pass);
-		}else{
-			return null;
-		}
-	}
-	
+	/*
 // sign up method for all users
 	Users signUp(String type,String name,String phone,String email,String pass,String id,String licence){
 		if(type.equalsIgnoreCase("driver")) {
@@ -51,7 +41,7 @@ public class Account {
 		}
 
 	}
-
+*/
 	String getName() {
 		return this.userName;
 	}

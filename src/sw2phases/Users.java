@@ -9,8 +9,10 @@ public abstract class  Users {
 	private String email;
 	private String password;
 	protected String Type;
+	protected Utility utility;
+	protected RideController rideController;
 	//private ArrayList<String> favouriteAreas;
-	private Account account;
+	//private Account account;
 	private TransportationSystem system;
 	
 	//System.out.println("s");
@@ -72,7 +74,7 @@ public abstract class  Users {
 	String getPassword() {
 		return this.password;
 	}
-	
+	/*
 	void setAccount(){
 		this.account=new Account(this);
 	}
@@ -80,7 +82,7 @@ public abstract class  Users {
 	Account getAccount() {
 		return this.account;
 	}
-	
+	*/
 	abstract void setType();
 	
 	String getType() {
@@ -99,7 +101,13 @@ public abstract class  Users {
 		return true;
 	}
 	
+	Utility getUtility(){
+		return this.utility;
+	}
 
+	RideController getRideController(){
+		return this.rideController;
+	}
 	// abstract Users login(String name,String pass);
 	
 	/*
@@ -121,6 +129,17 @@ public abstract class  Users {
 		}
 	}
 	*/
+
+	// login method for all users
+	Users login(Users user) {
+		if(user!=null){
+			return user;
+		}
+		return null;
+	}
+
+	// sign up method for all users
+	abstract Users signUp(Users user);
 	abstract void DisplayAllData();
 	
 }

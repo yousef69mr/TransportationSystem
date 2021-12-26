@@ -8,20 +8,25 @@ public class Ride {
 	private Driver driver;
 	private Client client;
 	private static int rideNumber;
+	private RideController rideController;
 	private TransportationSystem system;
 	
 	Ride(Client c,String src,String dest){
 		
 		setSource(src);
 		setDestination(dest);
-		//setRidePrice(0f);
+		setRidePrice(0f);
 		setClient(c);
 		setRideSystem(client.getSystem());
-
+		rideController= new RideController(this,getClient());
 		LinkRideToDriver();
 		rideNumber++;
 	}
-	/*
+
+	RideController getRideController()
+	{
+		return rideController;
+	}	/*
 	Ride(Driver d){
 		this.driver=d;
 		setDriver(d);
@@ -42,29 +47,12 @@ public class Ride {
 	}
 	
 	void LinkRideToDriver() {
-		this.driver=getDriverMatchesItsFavouriteArea();
+		this.driver=rideController.getDriverMatchesItsFavouriteArea();
 		setDriver(driver);
 	}
 	
 	
-	Driver getDriverMatchesItsFavouriteArea() {
-		
-		if(!system.getAllDrivers().isEmpty()) {
-			for(int i=0;i<system.getAllDrivers().size();i++) {
-				
-					
-					for(int j=0;j<system.getAllDrivers().get(i).getFavouriteAreas().size();j++) {
-						
-						if(system.getAllDrivers().get(i).isFavourite(this, system.getAllDrivers().get(i).getFavouriteAreas())) {
-							return system.getAllDrivers().get(i);
-						}
-					}
-					
-			}
-		}
-		
-		return null;
-	}
+
 	
 	public void setDriver(Driver newDriver) {
 		
@@ -143,6 +131,10 @@ public class Ride {
 		System.out.println("Driver INfo :");
 		driver.DisplaySpecificData();
 		System.out.println("//////////////////////");
+	}
+
+	TransportationSystem getSystem() {
+		return this.system;
 	}
 	
 }

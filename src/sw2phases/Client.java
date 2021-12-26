@@ -4,14 +4,17 @@ public class Client extends Users{
 
 	private Ride ride;
 	private Ratings rate;
-	
+
+	private RateController rateController;
 
 	Client(){
 		setName("");
 		setPassword("");
 		setType();
-
-		setAccount();
+		this.utility=new Utility(this);
+		this.rideController=new RideController(ride,this);
+		this.rateController=new RateController(this);
+		//setAccount();
 	}
 
 	Client(String name,String phone,String email,String pass){
@@ -20,36 +23,15 @@ public class Client extends Users{
 		setPhoneNumber(phone);
 		setPassword(pass);
 		setType();
-		setAccount();
+		//setAccount();
+		this.utility=new Utility(this);
+		this.rideController=new RideController(ride,this);
+		this.rateController=new RateController(this);
 	}
 	
-	void requestRide(Client c,String src,String dest) {
-		ride=new Ride(c,src,dest);
-		ride.setRideSystem(c.getSystem());
-		super.getSystem().addRide(ride);
-		ride.getDriver().addRide(ride);
-		if(ride.getDriver()!=null){
-			System.out.print("The Request is Completed Successfully\n");
-			ride.getDriver().DisplaySpecificData();
-		}else{
-			System.out.print("No available drivers in your area\n");
-		}
 
-	}
 	
-	void rateDriver(float rateRange) {
-		
-		if(ride!=null) {
-			rate =new Ratings(rateRange,this,ride.getDriver());
-			ride.getDriver().addRating(rate);
-			ride.getDriver().setAverageRatings();
 
-			System.out.println("Driver is rated Successfully");
-		}else {
-			System.out.println("you have to make a ride first to rate its driver");
-		}
-	}
-	
 	
 	@Override
 	void DisplayAllData() {
@@ -74,7 +56,24 @@ public class Client extends Users{
 		
 		Type="Client";
 	}
-	
+
+	@Override
+	Users signUp(Users user) {
+		Client c=new Client(user.getName(), user.getPhoneNumber(), user.getEmail(), user.getPassword());
+		c.setSystem(user.getSystem());
+		if(c.isValidInput()) {
+			if(!user.getSystem().getAllUsers().contains(c) ||!user.getSystem().getAllClients().contains(c)) {
+				//addUser(c);
+				user.getSystem().getAdmin().addClient(c);
+			}
+			return c;
+		}
+		else {
+			return null;
+		}
+
+	}
+
 	Ride getRide() {
 		return this.ride;
 	}
@@ -83,6 +82,20 @@ public class Client extends Users{
 		return this.rate;
 	}
 
+	RideController getRideController(){
+		return this.rideController;
+	}
+
+	RateController getRateController(){
+		return this.rateController;
+	}
+	void setRate(Ratings rate){
+		this.rate=rate;
+	}
+
+	void setRide(Ride ride){
+		this.ride=ride;
+	}
 	/*
 	Client login(String name, String pass) {
 		if(!super.getSystem().getAllSuspended().contains(super.getSystem().getSpecificClient(name, pass))) {

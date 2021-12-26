@@ -7,6 +7,7 @@ import java.util.Set;
 public class TransportationSystem {
 	private String systemName;
 	private Administrator admin;
+	private UI ui;
 	private static TransportationSystem uniqueSystem;
 	private Set<Users> users;
 	
@@ -22,6 +23,7 @@ public class TransportationSystem {
 	private TransportationSystem(String n){
 		
 		setName(n);
+		this.ui=new UI(this);
 		admin =new Administrator(this);
 		users = new HashSet<Users>();
 		drivers = new ArrayList<Driver>();
@@ -44,8 +46,9 @@ public class TransportationSystem {
 	
 	//relation with Users class
 	public void addUser(Users a) {
-		
-		users.add(a);
+		if(!a.getName().equals("")) {
+			users.add(a);
+		}
 		confirmed.add(a);
 		
 		a.setSystem(this);
@@ -87,7 +90,11 @@ public class TransportationSystem {
 	String getName() {
 		return this.systemName;
 	}
-	
+
+	UI getUI(){
+		return this.ui;
+	}
+
 	ArrayList<Driver> getAllDrivers(){
 		return drivers;
 	}
@@ -115,7 +122,7 @@ public class TransportationSystem {
 	ArrayList<Ride> getAllRides(){
 		return rides;
 	}
-	
+	/*
 	//function to create account for the driver
 	Driver createDriverAccount(String name,String phone,String email,String pass,String id,String licence) {
 		Driver d=new Driver(name,phone,email,pass,id,licence);
@@ -130,7 +137,8 @@ public class TransportationSystem {
 			return null;
 		}
 	}
-	
+	*/
+	/*
 	//function to create account for the client
 	Client createClientAccount(String name,String phone,String email,String pass) {
 		Client c=new Client(name,phone,email,pass);
@@ -146,7 +154,7 @@ public class TransportationSystem {
 			return null;
 		}
 	}
-		
+		*/
 	void displayDrivers() {
 		for(int i=0;i<drivers.size();i++) {
 			drivers.get(i).DisplayAllData();
@@ -155,7 +163,7 @@ public class TransportationSystem {
 
 	void displayUsers() {
 		ArrayList<Users> user=new ArrayList<Users>(users);
-
+/*
 		for(int i=0;i<user.size();i++) {
 
 			if(user.get(i).getName().equalsIgnoreCase("")){
@@ -163,7 +171,7 @@ public class TransportationSystem {
 			}
 
 		}
-
+*/
 		System.out.println("\nActive Users:");
 
 		for(int i=0;i<user.size();i++) {
@@ -200,60 +208,18 @@ public class TransportationSystem {
 		}
 		return null;
 	}
-		ArrayList<Ride> getRideSourceMatchesFavouriteAreaOfDriver(Driver drive,ArrayList<Ride> ride){
-			ArrayList<Ride> selectedRides=new ArrayList<Ride>();
-			
-			for(int i=0;i<rides.size();i++) {
-				if(drive.isFavourite(ride.get(i), drive.getFavouriteAreas())) {
-					selectedRides.add(ride.get(i));
-				}
+
+
+	ArrayList<Ride> getRideSourceMatchesFavouriteAreaOfDriver(Driver drive,ArrayList<Ride> ride){
+		ArrayList<Ride> selectedRides=new ArrayList<Ride>();
+
+		for(int i=0;i<rides.size();i++) {
+			if(drive.getRideController().isFavourite(ride.get(i), drive)) {
+				selectedRides.add(ride.get(i));
 			}
-			return selectedRides;
 		}
-
-
-	void ShowMainMenu() {
-
-		System.out.print("A:Create a new account              ");
-		System.out.println("B: Existing Account");
-	}
-
-	void ShowUserTypeMenu() {
-
-		System.out.print("A:Driver              ");
-		System.out.println("B:Client");
-
+		return selectedRides;
 	}
 
 
-	void ShowClientAccountMethodsMenu() {
-
-		System.out.println("A:Show Client Information ");
-		System.out.println("B:Request Ride ");
-		System.out.println("C:Rate a Driver ");
-		System.out.println("D:Show All Ratings of a Driver ");
-		System.out.println("E:Delete Account ");
-	}
-
-	void ShowAdminAccountMethodsMenu() {
-
-		System.out.println("A:Show Admin Information ");
-		System.out.println("B:Approve Driver");
-		System.out.println("C:Show All Users");
-		System.out.println("D:Suspend User");
-		System.out.println("E: Reactivate a suspended User");
-		System.out.println("F:Delete User ");
-
-	}
-
-	void ShowDriverAccountMethodsMenu() {
-
-		System.out.println("A:Show Driver Information ");
-		System.out.println("B:Show My Ratings ");
-		System.out.println("C:Add Favourite Area ");
-		System.out.println("D:Remove Favourite Area ");
-		System.out.println("E:Show My Favourite Areas ");
-		System.out.println("F:Make offer for My Rides ");
-	}
-	
 }

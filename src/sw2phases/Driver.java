@@ -22,8 +22,9 @@ public class Driver extends Users {
 		setDriverLicence("");
 
 		setType();
-
-		setAccount();
+		this.utility=new Utility(this);
+		this.rideController=new RideController(null,this);
+		//setAccount();
 	}
 	
 	public Driver(String name,String phone,String email,String pass,String id,String licence) {
@@ -36,7 +37,8 @@ public class Driver extends Users {
 		
 		setType();
 		
-		setAccount();
+		//setAccount();
+		this.utility=new Utility(this);
 		favouriteAreas =new ArrayList<String>();
 		rides = new HashSet<Ride>();
 		rates = new HashSet<Ratings>();
@@ -99,17 +101,7 @@ public class Driver extends Users {
 		return this.offer;
 	}
 	*/
-	//check if the Entry area is favouritre area for the driver 
-	boolean isFavourite(Ride r,ArrayList<String> favourite) {
-		
-		for(int i=0;i<favourite.size();i++) {
-			if(favourite.get(i).equalsIgnoreCase(r.getSource())) {
-				return true;
-			}
-		}
-		
-		return false;
-	}
+
 	
 	
 	
@@ -198,6 +190,26 @@ public class Driver extends Users {
 		}
 		return true;
 	}
+
+
+	@Override
+	Users signUp(Users user) {
+		if(user.getClass().equals(Driver.class)){
+			Driver d=new Driver(user.getName(), user.getPhoneNumber(), user.getEmail(), user.getPassword(), ((Driver) user).getNationalID(), ((Driver) user).getDriverLicence());
+			d.setSystem(user.getSystem());
+			if(d.isValidInput()) {
+				//	users.add(d);
+				if(!d.getSystem().getAllRequests().contains(d)) {
+					d.getSystem().getAllRequests().add(d);
+				}
+				return d;
+			}else {
+				return null;
+			}
+		}
+		return null;
+	}
+
 	/*
        
 	Driver login(String name, String pass) {
@@ -222,7 +234,15 @@ public class Driver extends Users {
 			selectedRides.get(i).displayRideData();
 		}
 	}
-	
+
+
+
+	////////////////////////
+	void setPriceForSpecificRide(float price,Ride ride) {
+		showRideSourceMatchesFavouriteAreaOfDriver();
+		ride.setRidePrice(price);
+	}
+	////////////////
 	void setPriceForSpecificRide(float price,int rideNum) {
 		showRideSourceMatchesFavouriteAreaOfDriver();
 		ArrayList<Ride> selectedRides=super.getSystem().getRideSourceMatchesFavouriteAreaOfDriver(this,super.getSystem().getAllRides());
