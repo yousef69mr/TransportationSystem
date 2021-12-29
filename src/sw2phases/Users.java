@@ -13,10 +13,11 @@ public abstract class  Users {
 	protected RideController rideController;
 	//private ArrayList<String> favouriteAreas;
 	//private Account account;
-	private TransportationSystem system;
+	protected TransportationSystem system;
 	
 	//System.out.println("s");
-	
+
+
 
 	public void setSystem(TransportationSystem newSystem) {
 		if (system != newSystem) {
@@ -92,7 +93,7 @@ public abstract class  Users {
 	TransportationSystem getSystem() {
 		return this.system;
 	}
-	
+
 	boolean isValidInput() {
 		if(getName()==null||getPhoneNumber()==null||getEmail()==null||getPassword()== null) {
 			return false;

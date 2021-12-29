@@ -2,7 +2,7 @@ package sw2phases;
 
 import java.util.*;
 
-public class main {
+public class Main {
 
 	public static void main(String[] args) {
 		
@@ -35,7 +35,7 @@ public class main {
 							Driver d = new Driver();
 							d.setSystem(system);
 							while (true) {
-/*
+
 								String name="";
 								while (!d.getUtility().verifyName(name)){
 									System.out.println("Enter your Name");
@@ -88,29 +88,29 @@ public class main {
 								d.setNationalID(id);
 								d.setDriverLicence(licence);
 
-*/
+/*
 								d.setName("ezz");
 								d.setEmail("sd@x.com");
 								d.setPassword("0123");
 								d.setPhoneNumber("01234567896");
 								d.setNationalID("01234569871230");
 								d.setDriverLicence("licence");
-
+*/
 
 								//d = (Driver) d.getAccount().signUp(d.getType(),  "name", "01234567896", "sd@x.com", "0123", "01234569871230", "licence");
 								d=(Driver) d.signUp(d);
 							//	d = (Driver) d.getAccount().signUp(d.getType(),  name,phone, email, pass, id, licence);
 
 								//System.out.print(d.getAccount());
-								//if (d.isValidInput()) {
+								if (d.isValidInput()) {
 
 									System.out.println("Account created successfully");
 
-									admin.getSystemController().verifyDriver(d);
-									d.addFavouriteArea("milano");
+									//admin.getSystemController().verifyDriver(d);
+									//d.addFavouriteArea("milano");
 
 									break;
-							//	}
+								}
 
 							}
 							break;
@@ -119,7 +119,7 @@ public class main {
 							Client c = new Client();
 							c.setSystem(system);
 							while (true) {
-/*
+
 								String name="";
 								while (!c.getUtility().verifyName(name)){
 									System.out.println("Enter your Name");
@@ -157,24 +157,24 @@ public class main {
 								c.setEmail(email);
 								c.setPassword(pass);
 								c.setPhoneNumber(phone);
-*/
+/*
 
 								c.setName("ali");
 								c.setEmail("sd@x.com");
 								c.setPassword("2020");
 								c.setPhoneNumber("01234567896");
 
-
+*/
 								c=(Client) c.signUp(c);
 								//c = (Client) c.getAccount().signUp(c.getType(),  "ali", "01234567896", "sd@x.com", "2020", null, null);
 								//c = (Client) c.getAccount().signUp(c.getType(), name, phone, email, pass, null, null);
 
-								//System.out.print(d.getAccount());
-								if (c.isValidInput()) {
+								//System.out.print(c.getAccount());
 
-									System.out.println("Account created successfully");
-									break;
-								}
+
+								System.out.println("Account created successfully");
+								break;
+
 							}
 
 							break;
@@ -219,7 +219,7 @@ public class main {
 
 					}
 
-					if(WantToLogin==false){
+					if(!WantToLogin){
 						break;
 					}
 
@@ -234,7 +234,8 @@ public class main {
 							switch (adminChoice) {
 								case ('A'):
 
-									admin.DisplayData();
+									System.out.println("Admin Info :");
+									admin.DisplayAllData();
 									break;
 
 								case ('B'):
@@ -255,7 +256,7 @@ public class main {
 									system.getDatabase().displayUsers();
 									System.out.println("Select Number of User ");
 									int num2 = scan.nextInt();
-									ArrayList<Users> user=new ArrayList<Users>(system.getDatabase().getAllUsers());
+									ArrayList<Users> user=new ArrayList<>(system.getDatabase().getAllUsers());
 									admin.getSystemController().suspendUser(user.get(num2-1));
 									break;
 
@@ -359,7 +360,7 @@ public class main {
 										int num2 = scan.nextInt();
 										System.out.println("Enter offer price ");
 										float offer = scan.nextInt();
-										ArrayList<Ride> ride=new ArrayList<Ride>(driver.getAllRides());
+										ArrayList<Ride> ride=new ArrayList<>(driver.getAllRides());
 										//ride.get(num2-1).setRidePrice(offer);
 										//driver.setPriceForSpecificRide(offer,ride.get(num2-1).getRideNumber());
 										driver.getRideController().setPriceForSpecificRide(offer,ride.get(num2-1));
@@ -368,8 +369,6 @@ public class main {
 
 								System.out.println("Do you need any other Services ?");
 								System.out.println("Yes/No (y/n)");
-
-								input =scan.next().charAt(0);
 
 
 								while (true) {

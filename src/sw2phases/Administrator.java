@@ -1,9 +1,7 @@
 package sw2phases;
 
-public class Administrator {
-	private String userName;
-	private String password;
-	private TransportationSystem system;
+public class Administrator extends Users{
+
 	private SystemController systemController;
 	
 	Administrator(TransportationSystem system){
@@ -11,40 +9,33 @@ public class Administrator {
 		this.systemController=new SystemController(getSystem());
 		setName("admin");
 		setPassword("admin");
+		setEmail("admin@admin.com");
+		setPhoneNumber("01234569877");
+		setType();
 	}
-	
-	void setName(String n) {
-		
-		this.userName=n;
-		
+
+
+	@Override
+	void setType() {
+		Type="Administrator";
 	}
-	
-	String getName() {
-		return this.userName;
+
+	@Override
+	Users signUp(Users user) {
+		return null;
 	}
-	
-	void setPassword(String pass) {
-		
-		this.password=pass;
-		
-	}
-	
-	String getPassword() {
-		return this.password;
-	}
-	
-	TransportationSystem getSystem() {
-		return this.system;
+
+	@Override
+	void DisplayAllData() {
+		System.out.println("Name : "+super.getName());
+		System.out.println("Password : "+super.getPassword());
+		System.out.println("Email : "+super.getEmail());
+		System.out.println("Phone Number : "+super.getPhoneNumber());
+		System.out.println("Account Type : "+super.getType());
 	}
 
 	SystemController getSystemController(){
 		return this.systemController;
 	}
-
-	void DisplayData(){
-		System.out.println("Name : "+getName());
-		System.out.println("Password : "+getPassword());
-	}
-
 
 }
