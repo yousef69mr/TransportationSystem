@@ -7,6 +7,7 @@ public class Utility {
     Utility(Users user){
         this.user=user;
     }
+
     boolean verifyName(String name){
         if(name.length()>0) {
             return true;
@@ -37,6 +38,15 @@ public class Utility {
 
         return false;
     }
+
+    boolean verifyRate(float rate){
+        if(rate>=1&&rate<=5) {
+            return true;
+        }
+        System.out.println("Out of Range !!");
+        return false;
+    }
+
     Users getUser(){
         return  this.user;
     }

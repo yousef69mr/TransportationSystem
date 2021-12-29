@@ -23,7 +23,6 @@ public class Driver extends Users {
 
 		setType();
 		this.utility=new Utility(this);
-		this.rideController=new RideController(null,this);
 		//setAccount();
 	}
 	
@@ -66,7 +65,11 @@ public class Driver extends Users {
 	}
 
 	/////////////////
-	
+
+	void setRideController(Ride ride){
+		this.rideController=new RideController(ride,this);
+	}
+
 	void setDriverLicence(String licence) {
 		
 		this.driverLicence=licence;
@@ -124,7 +127,7 @@ public class Driver extends Users {
 		System.out.println("Driver's Name : "+super.getName());
 		System.out.println("Phone Number : "+super.getPhoneNumber());
 		System.out.println("Licence Number : "+ getDriverLicence());
-		System.out.println("Account Type : "+super.getType());
+		//System.out.println("Account Type : "+super.getType());
 		System.out.println("Average Ratings : "+ getAverageRatings());
 
 		displayFavouriteAreas();
@@ -199,8 +202,8 @@ public class Driver extends Users {
 			d.setSystem(user.getSystem());
 			if(d.isValidInput()) {
 				//	users.add(d);
-				if(!d.getSystem().getAllRequests().contains(d)) {
-					d.getSystem().getAllRequests().add(d);
+				if(!d.getSystem().getDatabase().getAllRequests().contains(d)) {
+					d.getSystem().getDatabase().getAllRequests().add(d);
 				}
 				return d;
 			}else {
@@ -227,25 +230,12 @@ public class Driver extends Users {
 		}
 	}
 	*/
-	// show source Ride that matches with favourite area of Driver
-	void showRideSourceMatchesFavouriteAreaOfDriver() {
-		ArrayList<Ride> selectedRides=super.getSystem().getRideSourceMatchesFavouriteAreaOfDriver(this,super.getSystem().getAllRides());
-		for(int i=0;i<selectedRides.size();i++) {
-			selectedRides.get(i).displayRideData();
-		}
-	}
 
-
-
-	////////////////////////
-	void setPriceForSpecificRide(float price,Ride ride) {
-		showRideSourceMatchesFavouriteAreaOfDriver();
-		ride.setRidePrice(price);
-	}
 	////////////////
+	 /*
 	void setPriceForSpecificRide(float price,int rideNum) {
-		showRideSourceMatchesFavouriteAreaOfDriver();
-		ArrayList<Ride> selectedRides=super.getSystem().getRideSourceMatchesFavouriteAreaOfDriver(this,super.getSystem().getAllRides());
+		rideController.showRideSourceMatchesFavouriteAreaOfDriver();
+		ArrayList<Ride> selectedRides=super.getSystem().getRideSourceMatchesFavouriteAreaOfDriver(this,super.getSystem().getDatabase().getAllRides());
 		for(int i=0;i<selectedRides.size();i++) {
 			if(selectedRides.get(i).getRideNumber()==rideNum) {
 				selectedRides.get(i).setRidePrice(price);
@@ -253,7 +243,7 @@ public class Driver extends Users {
 		}
 		
 	}
-	
+	*/
 	void displayRatings() {
 		ArrayList<Ratings> r=new ArrayList<Ratings>(rates);
 		
@@ -276,7 +266,7 @@ public class Driver extends Users {
 	}
 
 	public void setAverageRatings() {
-		ArrayList<Ratings> r=new ArrayList<Ratings>(rates);
+		ArrayList<Ratings> r=new ArrayList<>(rates);
 		int sum=0;
 		
 		for(int i=0;i<r.size();i++) {

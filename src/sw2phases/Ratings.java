@@ -54,6 +54,6 @@ public class Ratings {
 	}
 	
 	void displayRatingData() {
-		System.out.println(client.getName()+"Rate  : " +getRate());
+		System.out.println(client.getName()+"'s Rate  : " +getRate());
 	}
 }

@@ -14,14 +14,14 @@ public class RideController {
 
     Driver getDriverMatchesItsFavouriteArea() {
 
-        if(!user.getSystem().getAllDrivers().isEmpty()) {
-            for(int i=0;i<user.getSystem().getAllDrivers().size();i++) {
+        if(!user.getSystem().getDatabase().getAllDrivers().isEmpty()) {
+            for(int i=0;i<user.getSystem().getDatabase().getAllDrivers().size();i++) {
 
 
-                for(int j=0;j<user.getSystem().getAllDrivers().get(i).getFavouriteAreas().size();j++) {
+                for(int j=0;j<user.getSystem().getDatabase().getAllDrivers().get(i).getFavouriteAreas().size();j++) {
 
-                    if(isFavourite(ride, user.getSystem().getAllDrivers().get(i))) {
-                        return user.getSystem().getAllDrivers().get(i);
+                    if(isFavourite(ride, user.getSystem().getDatabase().getAllDrivers().get(i))) {
+                        return user.getSystem().getDatabase().getAllDrivers().get(i);
                     }
                 }
 
@@ -41,8 +41,11 @@ public class RideController {
             ((Client)user).setRide(ride);
             user.getSystem().addRide(ride);
             ride.getDriver().addRide(ride);
-            System.out.print("The Request is Completed Successfully\n");
+
+            ride.getDriver().setRideController(ride);
+            System.out.print("The Request is Completed Successfully\n/******************************/\nDriver Info :\n");
             ride.getDriver().DisplaySpecificData();
+            System.out.print("/******************************/");
         }else{
             System.out.print("No available drivers in your area\n");
         }
@@ -60,5 +63,24 @@ public class RideController {
         }
 
         return false;
+    }
+
+
+    //***************************** Driver Functions ********************************//
+
+    // show source Ride that matches with favourite area of Driver
+    void showRideSourceMatchesFavouriteAreaOfDriver() {
+        ArrayList<Ride> selectedRides=user.getSystem().getRideSourceMatchesFavouriteAreaOfDriver((Driver) user,user.getSystem().getDatabase().getAllRides());
+        for(int i=0;i<selectedRides.size();i++) {
+            selectedRides.get(i).displayRideData();
+        }
+    }
+
+
+
+    ////////////////////////
+    void setPriceForSpecificRide(float price,Ride ride) {
+        showRideSourceMatchesFavouriteAreaOfDriver();
+        ride.setRidePrice(price);
     }
 }

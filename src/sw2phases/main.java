@@ -6,15 +6,19 @@ public class main {
 
 	public static void main(String[] args) {
 		
-		TransportationSystem system=TransportationSystem.getInstance("uber");
+		TransportationSystem system=TransportationSystem.getInstance("FCAI");
 		Administrator admin=system.getAdmin();
 		Scanner scan=new Scanner(System.in);
 
-		System.out.println("****************************************************");
-		System.out.println("****    Welcome to our Transportation System    ****");
-		System.out.println("****************************************************");
-		
-		while(true) {
+		system.getUI().ShowWelcomeMenu();
+
+		boolean isRunning =true;
+		boolean isRunningClient =true;
+		boolean isRunningDriver =true;
+		boolean isRunningAdmin =true;
+		boolean WantToLogin =true;
+
+		while(isRunning) {
 
 			system.getUI().ShowMainMenu();
 			System.out.println("Enter Choice");
@@ -31,7 +35,7 @@ public class main {
 							Driver d = new Driver();
 							d.setSystem(system);
 							while (true) {
-
+/*
 								String name="";
 								while (!d.getUtility().verifyName(name)){
 									System.out.println("Enter your Name");
@@ -84,28 +88,30 @@ public class main {
 								d.setNationalID(id);
 								d.setDriverLicence(licence);
 
-/*
+*/
 								d.setName("ezz");
 								d.setEmail("sd@x.com");
 								d.setPassword("0123");
 								d.setPhoneNumber("01234567896");
 								d.setNationalID("01234569871230");
 								d.setDriverLicence("licence");
-*/
+
 
 								//d = (Driver) d.getAccount().signUp(d.getType(),  "name", "01234567896", "sd@x.com", "0123", "01234569871230", "licence");
 								d=(Driver) d.signUp(d);
 							//	d = (Driver) d.getAccount().signUp(d.getType(),  name,phone, email, pass, id, licence);
 
 								//System.out.print(d.getAccount());
-								if (d.isValidInput()) {
-
-									//admin.verifyDriver(d);
-									//d.addFavouriteArea("milano");
+								//if (d.isValidInput()) {
 
 									System.out.println("Account created successfully");
+
+									admin.getSystemController().verifyDriver(d);
+									d.addFavouriteArea("milano");
+
 									break;
-								}
+							//	}
+
 							}
 							break;
 
@@ -113,7 +119,7 @@ public class main {
 							Client c = new Client();
 							c.setSystem(system);
 							while (true) {
-
+/*
 								String name="";
 								while (!c.getUtility().verifyName(name)){
 									System.out.println("Enter your Name");
@@ -151,13 +157,13 @@ public class main {
 								c.setEmail(email);
 								c.setPassword(pass);
 								c.setPhoneNumber(phone);
+*/
 
-								/*
 								c.setName("ali");
 								c.setEmail("sd@x.com");
 								c.setPassword("2020");
 								c.setPhoneNumber("01234567896");
-								*/
+
 
 								c=(Client) c.signUp(c);
 								//c = (Client) c.getAccount().signUp(c.getType(),  "ali", "01234567896", "sd@x.com", "2020", null, null);
@@ -178,10 +184,10 @@ public class main {
 					break;
 
 				case ('B'):
-					String name;
-					String pass;
+					String name="";
+					String pass="";
 
-					while (true) {
+					while (WantToLogin) {
 						System.out.println("Enter your Name");
 						 name = scan.next();
 						System.out.println("Enter your Password");
@@ -191,15 +197,36 @@ public class main {
 							System.out.println("Login Successfully !!");
 							break;
 						}
-						System.out.println("Incorrect Name or Password \nTry Again :(");
 
 
+						system.getUI().loginFaluireMenu();
+
+						input=scan.next().charAt(0);
+
+						switch (input){
+							case('A'):
+								break;
+
+							case ('B'):
+								WantToLogin=false;
+								break;
+
+							default:
+								System.out.println("Invalid Input !!");
+								break;
+						}
+
+
+					}
+
+					if(WantToLogin==false){
+						break;
 					}
 
 					if (name.equalsIgnoreCase(admin.getName())&&pass.equalsIgnoreCase(admin.getPassword())){
 						//admin  info
 						System.out.println("Welcome "+admin.getName());
-						while (true) {
+						while (isRunningAdmin) {
 							system.getUI().ShowAdminAccountMethodsMenu();
 							System.out.println("Enter your Choice");
 
@@ -212,56 +239,69 @@ public class main {
 
 								case ('B'):
 
-									system.showPendingDrivers();
+									system.getDatabase().showPendingDrivers();
 									System.out.println("Select Number of Driver ");
 									int num = scan.nextInt();
-									admin.verifyDriver((Driver) system.getAllRequests().get(num-1));
+									admin.getSystemController().verifyDriver((Driver) system.getDatabase().getAllRequests().get(num-1));
 									break;
 
 								case ('C'):
 
-									system.displayUsers();
+									system.getDatabase().displayUsers();
 									break;
 
 								case ('D'):
 
-									system.displayUsers();
+									system.getDatabase().displayUsers();
 									System.out.println("Select Number of User ");
 									int num2 = scan.nextInt();
-									ArrayList<Users> user=new ArrayList<Users>(system.getAllUsers());
-									admin.suspendUser(user.get(num2-1));
+									ArrayList<Users> user=new ArrayList<Users>(system.getDatabase().getAllUsers());
+									admin.getSystemController().suspendUser(user.get(num2-1));
 									break;
 
 								case ('E'):
 
-									system.showSuspendedUsers();
+									system.getDatabase().showSuspendedUsers();
 									System.out.println("Select Number of User ");
 									num2 = scan.nextInt();
-									admin.returnFromSuspended(system.getAllSuspended().get(num2-1));
+									admin.getSystemController().returnFromSuspended(system.getDatabase().getAllSuspended().get(num2-1));
 									break;
 
 								case ('F'):
 
-									system.displayUsers();
+									system.getDatabase().displayUsers();
 									System.out.println("Select Number of User ");
 									num2 = scan.nextInt();
-									admin.getSystem().removeUser(system.getAllSuspended().get(num2-1));
+									admin.getSystem().removeUser(system.getDatabase().getAllSuspended().get(num2-1));
 									break;
+
+								case('G'):
+
+									system.getDatabase().displayDrivers();
+									break;
+
 							}
 
 							System.out.println("\nDo you need any other Services ?");
 							System.out.println("Yes/No (y/n)");
+							while (true) {
 
-							input =scan.next().charAt(0);
+								input =scan.next().charAt(0);
 
+								if (input == 'n' || input == 'N') {
 
-							if(input=='n'||input=='N') {
+									scan.close();
+									System.out.println("It was a pleasure to serve U :)");
+									isRunningAdmin=false;
+									break;
 
-								break;
+								} else if (input == 'y' || input == 'Y') {
 
-							}else if(input=='y'||input=='Y') {
+									break;
 
-								continue;
+								}else{
+									System.out.println("Invalid Input !!\nTry Again ");
+								}
 							}
 
 						}
@@ -277,7 +317,7 @@ public class main {
 							driver=(Driver) driver.login(system.getSpecificUser(name,pass));
 							System.out.println("///////////////////////////////////////////");
 							System.out.println("Welcome "+driver.getName());
-							while (true) {
+							while (isRunningDriver) {
 								system.getUI().ShowDriverAccountMethodsMenu();
 								System.out.println("Enter your Choice");
 
@@ -322,7 +362,7 @@ public class main {
 										ArrayList<Ride> ride=new ArrayList<Ride>(driver.getAllRides());
 										//ride.get(num2-1).setRidePrice(offer);
 										//driver.setPriceForSpecificRide(offer,ride.get(num2-1).getRideNumber());
-										driver.setPriceForSpecificRide(offer,ride.get(num2-1));
+										driver.getRideController().setPriceForSpecificRide(offer,ride.get(num2-1));
 										break;
 								}
 
@@ -332,13 +372,24 @@ public class main {
 								input =scan.next().charAt(0);
 
 
-								if(input=='n'||input=='N') {
+								while (true) {
 
-									break;
+									input =scan.next().charAt(0);
 
-								}else if(input=='y'||input=='Y') {
+									if (input == 'n' || input == 'N') {
 
-									continue;
+										scan.close();
+										System.out.println("It was a pleasure to serve U :)");
+										isRunningDriver=false;
+										break;
+
+									} else if (input == 'y' || input == 'Y') {
+
+										break;
+
+									}else{
+										System.out.println("Invalid Input !!\nTry Again ");
+									}
 								}
 							}
 							break;
@@ -350,7 +401,7 @@ public class main {
 							client=(Client) client.login(system.getSpecificUser(name,pass));
 							System.out.println("///////////////////////////////////////////");
 							System.out.println("Welcome "+client.getName());
-							while (true) {
+							while (isRunningClient) {
 								system.getUI().ShowClientAccountMethodsMenu();
 								System.out.println("Enter your Choice");
 
@@ -373,8 +424,16 @@ public class main {
 									case ('C'):
 
 										System.out.println("Enter Rate Number [1 to 5]");
-										float rate = scan.nextInt();
-										client.getRateController().rateDriver(rate);
+										while(true){
+											float rate = scan.nextInt();
+											if(client.getUtility().verifyRate(rate)) {
+												client.getRateController().rateDriver(rate);
+												break;
+
+											}else{
+												System.out.println("Try Again");
+											}
+										}
 										break;
 
 									case ('D'):
@@ -385,7 +444,7 @@ public class main {
 									case ('E'):
 
 										system.removeUser(client);
-										admin.removeClient(client);
+										admin.getSystemController().removeClient(client);
 										break;
 
 								}
@@ -393,16 +452,24 @@ public class main {
 								System.out.println("\nDo you need any other Services ?");
 								System.out.println("Yes/No (y/n)");
 
-								input =scan.next().charAt(0);
+								while (true) {
 
+									input =scan.next().charAt(0);
 
-								if(input=='n'||input=='N') {
+									if (input == 'n' || input == 'N') {
 
-									break;
+										scan.close();
+										System.out.println("It was a pleasure to serve U :)");
+										isRunningClient=false;
+										break;
 
-								}else if(input=='y'||input=='Y') {
+									} else if (input == 'y' || input == 'Y') {
 
-									continue;
+										break;
+
+									}else{
+										System.out.println("Invalid Input !!\nTry Again ");
+									}
 								}
 
 							}
@@ -416,20 +483,30 @@ public class main {
 			System.out.println("\nDo you need any other Services in the System?");
 			System.out.println("Yes/No (y/n)");
 
-			input =scan.next().charAt(0);
 
 
-			if(input=='n'||input=='N') {
+			while (true) {
 
-				scan.close();
-				System.out.println("It was a pleasure to serve U :)");
-				break;
+				input =scan.next().charAt(0);
 
-			}else if(input=='y'||input=='Y') {
+				if (input == 'n' || input == 'N') {
 
-				continue;
+					scan.close();
+					System.out.println("It was a pleasure to serve U :)");
+					isRunning=false;
+					break;
+
+				} else if (input == 'y' || input == 'Y') {
+					isRunningClient =true;
+					isRunningDriver =true;
+					isRunningAdmin =true;
+					WantToLogin =true;
+					break;
+
+				}else{
+					System.out.println("Invalid Input !!\nTry Again ");
+				}
 			}
-
 
 		}
 	}

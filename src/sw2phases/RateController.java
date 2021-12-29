@@ -19,7 +19,8 @@ public class RateController {
 
         }else if(client.getRide()!=null&&client.getRating()!=null){
 
-            System.out.println("This Driver has already rated !!");
+            client.getRating().setRate(rateRange);
+            System.out.println("This Driver has already rated !! \nBut Its Rate is Successfully overwritten :)");
 
         }else {
             System.out.println("you have to make a ride first to rate its driver");

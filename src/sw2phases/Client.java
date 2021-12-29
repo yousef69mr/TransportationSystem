@@ -62,9 +62,9 @@ public class Client extends Users{
 		Client c=new Client(user.getName(), user.getPhoneNumber(), user.getEmail(), user.getPassword());
 		c.setSystem(user.getSystem());
 		if(c.isValidInput()) {
-			if(!user.getSystem().getAllUsers().contains(c) ||!user.getSystem().getAllClients().contains(c)) {
+			if(!user.getSystem().getDatabase().getAllUsers().contains(c) ||!user.getSystem().getDatabase().getAllClients().contains(c)) {
 				//addUser(c);
-				user.getSystem().getAdmin().addClient(c);
+				user.getSystem().getAdmin().getSystemController().addClient(c);
 			}
 			return c;
 		}

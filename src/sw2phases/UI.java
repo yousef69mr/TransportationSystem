@@ -8,6 +8,15 @@ public class UI {
         this.system=system;
     }
 
+    void ShowWelcomeMenu(){
+
+        System.out.println("*****************************************************");
+        System.out.println("****    Welcome to "+system.getName()+" Transportation System    ****");
+        System.out.println("*****************************************************");
+
+    }
+
+
     void ShowMainMenu() {
 
         System.out.print("A:Create a new account              ");
@@ -39,6 +48,7 @@ public class UI {
         System.out.println("D:Suspend User");
         System.out.println("E: Reactivate a suspended User");
         System.out.println("F:Delete User ");
+        System.out.println("G:Show All Drivers ");
 
     }
 
@@ -52,5 +62,10 @@ public class UI {
         System.out.println("F:Make offer for My Rides ");
     }
 
+    void loginFaluireMenu(){
+        System.out.println("Incorrect Name or Password ");
+        System.out.println("A:Try Again ");
+        System.out.println("B:Exit ");
+    }
 
 }

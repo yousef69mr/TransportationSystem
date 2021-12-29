@@ -125,10 +125,10 @@ public class Ride {
 		System.out.println("Destination Location : " +getDestination());
 		System.out.println("Price : "+getRidePrice());
 		System.out.println("//////////////////////");
-		System.out.println("Client INfo :");
+		System.out.println("Client Info :");
 		client.DisplaySpecificData();
 		System.out.println("//////////////////////");
-		System.out.println("Driver INfo :");
+		System.out.println("Driver Info :");
 		driver.DisplaySpecificData();
 		System.out.println("//////////////////////");
 	}
