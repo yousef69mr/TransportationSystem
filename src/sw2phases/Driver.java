@@ -12,6 +12,7 @@ public class Driver extends Users {
 	private ArrayList<String> favouriteAreas;
 	private double averageRatings;
 	private Set<Ride> rides;
+	private ArrayList<Ride> confirmedRides;
 	private Set<Ratings> rates;
 	
 	
@@ -35,11 +36,15 @@ public class Driver extends Users {
 		setDriverLicence(licence);
 		
 		setType();
-		
+
+		setRideData();
+
 		//setAccount();
+		this.systemController=new SystemController(getSystem());
 		this.utility=new Utility(this);
 		favouriteAreas =new ArrayList<String>();
 		rides = new HashSet<Ride>();
+		confirmedRides= new ArrayList<Ride>();
 		rates = new HashSet<Ratings>();
 	}
 	
@@ -105,9 +110,24 @@ public class Driver extends Users {
 	}
 	*/
 
+	void setConfirmedRides(Ride ride){
+		confirmedRides.add(ride);
+	}
 	
-	
-	
+	void displayRideHistory(){
+
+		System.out.println("/**********************************/");
+		System.out.println("My Rides History :");
+		System.out.println("/**********************************/");
+		for(int i=0;i<confirmedRides.size();i++){
+			System.out.println(i+1+")"+" Ride No.: "+confirmedRides.get(i).getRideNumber()+"\n"+confirmedRides.get(i).getSource()+"-->"+confirmedRides.get(i).getDestination()+" Client : "+confirmedRides.get(i).getClient().getName());
+			System.out.println("Confirmation Time : "+confirmedRides.get(i).getDate());
+			System.out.println("/**********************************/");
+
+		}
+	}
+
+
 	@Override
 	//Display the Driver Data
 	void DisplayAllData() {
@@ -133,6 +153,7 @@ public class Driver extends Users {
 		displayFavouriteAreas();
 	}
 
+
 	@Override
 	void setType() {
 		Type="Driver";
@@ -141,7 +162,11 @@ public class Driver extends Users {
 	Set<Ride> getAllRides(){
 		return rides;
 	}
-	
+
+	ArrayList<Ride> getAllConfirmedRides(){
+		return confirmedRides;
+	}
+
 	Set<Ratings> getAllRatings(){
 		return rates;
 	}
@@ -252,11 +277,25 @@ public class Driver extends Users {
 		}
 	}
 
-	void displayRidesList() {
-		ArrayList<Ride> r=new ArrayList<Ride>(rides);
-		System.out.println("\nRides List:");
+	void fixPendingRides(){
+		int i;
+		ArrayList<Ride> r=new ArrayList<>(rides);
 
-		for(int i=0;i<r.size();i++) {
+		for(i=0;i<r.size();i++) {
+			if(r.get(i).getDate()!=null){
+				rides.remove(r.get(i));
+			}
+		}
+	}
+
+	void displayRidesList() {
+		int i;
+		ArrayList<Ride> r=new ArrayList<>(rides);
+
+		System.out.println("/**********************************/");
+		System.out.println("\nRides List:");
+		System.out.println("/**********************************/");
+		for(i=0;i<r.size();i++) {
 			System.out.println(i+1+")"+" Ride No.: "+r.get(i).getRideNumber()+"\n"+r.get(i).getSource()+"-->"+r.get(i).getDestination()+" Client : "+r.get(i).getClient().getName() );
 		}
 	}
@@ -277,4 +316,45 @@ public class Driver extends Users {
 		this.averageRatings = average;
 	}
 
+
+
+	Ride getSpecificRide(int choice){
+		ArrayList<Ride> rides=new ArrayList<>(getAllRides());
+
+		for(int i=0;i<rides.size();i++){
+			if(i==choice){
+				return rides.get(i);
+			}
+		}
+
+		return null;
+	}
+
+	@Override
+	public void update(Ride ride,float price) {
+
+		if(!system.getDatabase().getAllRides().contains(ride)){
+
+			if(price!=0) {
+				ArrayList<Ride> rides = new ArrayList<>(ride.getDriver().getAllRides());
+
+				for (int i = 0; i < rides.size(); i++) {
+					if (getUtility().match(ride, rides)) {
+
+						rides.get(i).setRidePrice(price);
+
+						System.out.println(ride.getDriver().getType() + " : " + ride.getDriver().getName() + " offers " + price);
+						ride.getDriver().getRideData().getOffers().add(ride.getDriver().getType() + " : " + ride.getDriver().getName() + " offers " + price);
+
+						ride.getDriver().getRideData().attachRide(rides.get(i));
+						rides.get(i).displayRideData();
+
+						ride.getDriver().getRideData().setOfferWithoutNotify(0f);
+					}
+				}
+			}
+
+		}
+
+	}
 }

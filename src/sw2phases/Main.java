@@ -34,6 +34,10 @@ public class Main {
 						case ('A'):
 							Driver d = new Driver();
 							d.setSystem(system);
+							/*
+							Driver d2 = new Driver();
+							d2.setSystem(system);
+							*/
 							while (true) {
 
 								String name="";
@@ -89,14 +93,29 @@ public class Main {
 								d.setDriverLicence(licence);
 
 /*
-								d.setName("ezz");
+								d2.setName("ezz");
+								d2.setEmail("sd@x.com");
+								d2.setPassword("0123");
+								d2.setPhoneNumber("01234567896");
+								d2.setNationalID("01234569871230");
+								d2.setDriverLicence("licence");
+								d2=(Driver) d2.signUp(d2);
+
+
+								System.out.println("Account created successfully");
+
+								admin.getSystemController().verifyDriver(d2);
+								d2.addFavouriteArea("milano");
+
+
+								d.setName("ahmed");
 								d.setEmail("sd@x.com");
-								d.setPassword("0123");
+								d.setPassword("2019");
 								d.setPhoneNumber("01234567896");
 								d.setNationalID("01234569871230");
 								d.setDriverLicence("licence");
-*/
 
+*/
 								//d = (Driver) d.getAccount().signUp(d.getType(),  "name", "01234567896", "sd@x.com", "0123", "01234569871230", "licence");
 								d=(Driver) d.signUp(d);
 							//	d = (Driver) d.getAccount().signUp(d.getType(),  name,phone, email, pass, id, licence);
@@ -157,14 +176,14 @@ public class Main {
 								c.setEmail(email);
 								c.setPassword(pass);
 								c.setPhoneNumber(phone);
-/*
 
+/*
 								c.setName("ali");
 								c.setEmail("sd@x.com");
 								c.setPassword("2020");
 								c.setPhoneNumber("01234567896");
-
 */
+
 								c=(Client) c.signUp(c);
 								//c = (Client) c.getAccount().signUp(c.getType(),  "ali", "01234567896", "sd@x.com", "2020", null, null);
 								//c = (Client) c.getAccount().signUp(c.getType(), name, phone, email, pass, null, null);
@@ -281,6 +300,12 @@ public class Main {
 									system.getDatabase().displayDrivers();
 									break;
 
+								case('H'):
+
+									admin.getSystemController().displayRides();
+									break;
+
+
 							}
 
 							System.out.println("\nDo you need any other Services ?");
@@ -291,7 +316,6 @@ public class Main {
 
 								if (input == 'n' || input == 'N') {
 
-									scan.close();
 									System.out.println("It was a pleasure to serve U :)");
 									isRunningAdmin=false;
 									break;
@@ -355,15 +379,37 @@ public class Main {
 
 									case ('F'):
 
-										driver.displayRidesList();
-										System.out.println("Select Number of Selected Ride ");
-										int num2 = scan.nextInt();
-										System.out.println("Enter offer price ");
-										float offer = scan.nextInt();
-										ArrayList<Ride> ride=new ArrayList<>(driver.getAllRides());
-										//ride.get(num2-1).setRidePrice(offer);
-										//driver.setPriceForSpecificRide(offer,ride.get(num2-1).getRideNumber());
-										driver.getRideController().setPriceForSpecificRide(offer,ride.get(num2-1));
+										driver.fixPendingRides();
+
+										if(!driver.getAllRides().isEmpty()) {
+											driver.displayRidesList();
+
+											System.out.println("Select Number of Selected Ride ");
+											int num2 = scan.nextInt();
+
+											System.out.println("Enter offer price ");
+											float offer = scan.nextInt();
+											ArrayList<Ride> ride = new ArrayList<>(driver.getAllRides());
+											driver.getRideData().setRide(driver.getSpecificRide(num2 - 1));
+											//ride.get(num2-1).setRidePrice(offer);
+											//driver.setPriceForSpecificRide(offer,ride.get(num2-1).getRideNumber());
+											driver.getRideData().setRole(2);
+											driver.getRideData().setOffer(offer);
+											//									driver.getRideData().setRide(driver.getRide(num2-1));
+											//driver.getRideController().setPriceForSpecificRide(offer,ride.get(num2-1));
+										}else{
+											System.out.println("There is no Pending Rides");
+										}
+
+										break;
+
+									case('G'):
+
+										if(!driver.getAllConfirmedRides().isEmpty()) {
+											driver.displayRideHistory();
+										}else{
+											System.out.println("There is no Previous Rides for this Driver");
+										}
 										break;
 								}
 
@@ -377,7 +423,7 @@ public class Main {
 
 									if (input == 'n' || input == 'N') {
 
-										scan.close();
+
 										System.out.println("It was a pleasure to serve U :)");
 										isRunningDriver=false;
 										break;
@@ -417,7 +463,10 @@ public class Main {
 										String src = scan.next();
 										System.out.println("Enter your Destination Location");
 										String destination = scan.next();
-										client.getRideController().requestRide(client,src, destination);
+										ArrayList<Driver> matched =client.getRideController().getAllDriversMatchesItsFavouriteArea(client,src);
+
+										//client.getRideController().requestRide(client,src, destination);
+										client.getRideController().createPotintialRides(client,src,destination,matched);
 										break;
 
 									case ('C'):
@@ -437,7 +486,11 @@ public class Main {
 
 									case ('D'):
 
-										client.getRide().getDriver().displayRatings();
+										if(client.getRide()!=null) {
+											client.getRide().getDriver().displayRatings();
+										}else{
+											System.out.print("No available drivers in your area\n");
+										}
 										break;
 
 									case ('E'):
@@ -445,6 +498,20 @@ public class Main {
 										system.removeUser(client);
 										admin.getSystemController().removeClient(client);
 										break;
+
+									case ('F'):
+
+
+										client.getRideData().displayOffers();
+
+										System.out.println("Choose your deal [Price]");
+										int price = scan.nextInt();
+
+										client.getRideData().setRole(1);
+										client.getRideData().setOffer(price);
+										//((Client)client.getRideData().getSpecificObserver(num2-1)).getRideData().getRide().setRideSystem(system);
+										break;
+
 
 								}
 
@@ -457,7 +524,6 @@ public class Main {
 
 									if (input == 'n' || input == 'N') {
 
-										scan.close();
 										System.out.println("It was a pleasure to serve U :)");
 										isRunningClient=false;
 										break;

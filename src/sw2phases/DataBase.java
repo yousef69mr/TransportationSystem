@@ -34,9 +34,12 @@ public class DataBase {
 
 
     void displayDrivers() {
-        System.out.println("\nActive Drivers:");
+        System.out.println("/************************/");
+        System.out.println("Active Drivers:");
+        System.out.println("/************************/");
         for(int i=0;i<getAllDrivers().size();i++) {
             getAllDrivers().get(i).DisplayAllData();
+            System.out.println("/************************/");
         }
     }
 
@@ -51,29 +54,34 @@ public class DataBase {
 
 		}
 */
-        System.out.println("\nActive Users:");
-
+        System.out.println("/************************/");
+        System.out.println("Active Users:");
+        System.out.println("/************************/");
         for(int i=0;i<user.size();i++) {
 
             System.out.println(i+1+")"+user.get(i).getName());
+            System.out.println("/************************/");
 
         }
     }
 
     void showPendingDrivers() {
-
-        System.out.println("\nPending Drivers:");
-
+        System.out.println("/************************/");
+        System.out.println("Pending Drivers:");
+        System.out.println("/************************/");
         for(int i=0;i<getAllRequests().size();i++) {
             System.out.println(i+1+")"+getAllRequests().get(i).getName());
+            System.out.println("/************************/");
         }
     }
 
     void showSuspendedUsers() {
-        System.out.println("\nSuspended Drivers:");
-
+        System.out.println("/************************/");
+        System.out.println("Suspended Drivers:");
+        System.out.println("/************************/");
         for(int i=0;i<getAllSuspended().size();i++) {
             System.out.println(i+1+")"+getAllSuspended().get(i).getName());
+            System.out.println("/************************/");
         }
     }
 

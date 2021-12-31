@@ -1,5 +1,7 @@
 package sw2phases;
 
+import java.util.Date;
+
 public class Ride {
 	
 	private String source;
@@ -7,12 +9,14 @@ public class Ride {
 	private float ridePrice;
 	private Driver driver;
 	private Client client;
+	private Date date;
 	private static int rideNumber;
 	private RideController rideController;
 	private TransportationSystem system;
-	
+/*
 	Ride(Client c,String src,String dest){
-		
+
+		setDate(null);
 		setSource(src);
 		setDestination(dest);
 		setRidePrice(0f);
@@ -20,6 +24,33 @@ public class Ride {
 		setRideSystem(client.getSystem());
 		rideController= new RideController(this,getClient());
 		LinkRideToDriver();
+		//rideNumber++;
+	}
+*/
+	Ride(Client c,String src){
+
+		setDate(null);
+		setSource(src);
+		setRidePrice(0f);
+		setClient(c);
+		rideController= new RideController(this,getClient());
+		LinkRideToDriver();
+		rideNumber++;
+	}
+
+	Ride(Client c,Driver d,String src,String dest){
+
+		setDate(null);
+		setSource(src);
+		setDestination(dest);
+		setRidePrice(0f);
+		setClient(c);
+		//setRideSystem(client.getSystem());
+		rideController= new RideController(this,getClient());
+
+		this.driver=d;
+		setDriver(driver);
+
 		rideNumber++;
 	}
 
@@ -50,8 +81,7 @@ public class Ride {
 		this.driver=rideController.getDriverMatchesItsFavouriteArea();
 		setDriver(driver);
 	}
-	
-	
+
 
 	
 	public void setDriver(Driver newDriver) {
@@ -93,7 +123,16 @@ public class Ride {
 	float getRidePrice() {
 		return this.ridePrice;
 	}
-	
+
+
+	void setDate(Date date){
+		this.date=date;
+	}
+
+	Date getDate(){
+		return this.date;
+	}
+
 	void setSource(String s) {
 		
 		this.source=s;
@@ -124,6 +163,7 @@ public class Ride {
 		System.out.println("Source Location : " +getSource());
 		System.out.println("Destination Location : " +getDestination());
 		System.out.println("Price : "+getRidePrice());
+		System.out.println("Time Stamp : "+getDate());
 		System.out.println("//////////////////////");
 		System.out.println("Client Info :");
 		client.DisplaySpecificData();
@@ -132,6 +172,8 @@ public class Ride {
 		driver.DisplaySpecificData();
 		System.out.println("//////////////////////");
 	}
+
+
 
 	TransportationSystem getSystem() {
 		return this.system;

@@ -1,5 +1,7 @@
 package sw2phases;
 
+import java.util.ArrayList;
+
 public class SystemController {
     private TransportationSystem system;
 
@@ -7,6 +9,19 @@ public class SystemController {
         this.system=system;
     }
 
+
+
+    boolean isOnSystem(Ride ride){
+
+        if(system.getDatabase().getAllRides().contains(ride)){
+            return true;
+        }
+
+        return false;
+    }
+    
+
+    /*********** Admin Functions **********/
     // function to to add the drver in the system
     void verifyDriver(Driver d) {
         if(system.getDatabase().getAllRequests().contains(d)) {
@@ -85,6 +100,14 @@ public class SystemController {
         system.removeUser(u);
     }
 
+    void displayRides(){
+        System.out.println("System Rides :");
+
+        for(int i=0;i<system.getDatabase().getAllRides().size();i++){
+            system.getDatabase().getAllRides().get(i).displayRideData();
+            System.out.println("/************************/");
+        }
+    }
 
     TransportationSystem getSystem(){
         return this.system;

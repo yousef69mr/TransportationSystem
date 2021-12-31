@@ -2,7 +2,6 @@ package sw2phases;
 
 public class Administrator extends Users{
 
-	private SystemController systemController;
 	
 	Administrator(TransportationSystem system){
 		this.system=system;
@@ -38,4 +37,8 @@ public class Administrator extends Users{
 		return this.systemController;
 	}
 
+	@Override
+	public void update(Ride ride,float price) {
+
+	}
 }

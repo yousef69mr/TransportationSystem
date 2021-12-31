@@ -129,8 +129,12 @@ public class TransportationSystem {
 	}
 
 
+//drivers then rides
+
+	/*
 	ArrayList<Ride> getRideSourceMatchesFavouriteAreaOfDriver(Driver drive,ArrayList<Ride> ride){
 		ArrayList<Ride> selectedRides=new ArrayList<>();
+
 
 		for(int i=0;i<database.getAllRides().size();i++) {
 			if(drive.getRideController().isFavourite(ride.get(i), drive)) {
@@ -139,7 +143,7 @@ public class TransportationSystem {
 		}
 		return selectedRides;
 	}
-
+*/
 	DataBase getDatabase(){
 		return this.database;
 	}

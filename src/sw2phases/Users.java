@@ -2,8 +2,9 @@ package sw2phases;
 
 import java.util.ArrayList;
 
-public abstract class  Users {
-		
+public abstract class  Users implements Observer {
+
+	private RideData rideData ;
 	private String userName;
 	private String mobileNumber;
 	private String email;
@@ -11,6 +12,7 @@ public abstract class  Users {
 	protected String Type;
 	protected Utility utility;
 	protected RideController rideController;
+	protected SystemController systemController;
 	//private ArrayList<String> favouriteAreas;
 	//private Account account;
 	protected TransportationSystem system;
@@ -85,7 +87,7 @@ public abstract class  Users {
 	}
 	*/
 	abstract void setType();
-	
+
 	String getType() {
 		return this.Type;
 	}
@@ -108,6 +110,25 @@ public abstract class  Users {
 
 	RideController getRideController(){
 		return this.rideController;
+	}
+
+	SystemController getSystemController(){
+		return this.systemController;
+	}
+
+
+	public void setRideData(){
+		this.rideData=new RideData();
+		rideData.attach(this);
+	}
+
+	public void setRideData(RideData rideData){
+		this.rideData=rideData;
+		this.rideData.attach(this);
+	}
+
+	RideData getRideData(){
+		return this.rideData;
 	}
 	// abstract Users login(String name,String pass);
 	

@@ -38,6 +38,7 @@ public class UI {
         System.out.println("C:Rate a Driver ");
         System.out.println("D:Show All Ratings of a Driver ");
         System.out.println("E:Delete Account ");
+        System.out.println("F:Show Driver Offers ");
     }
 
     void ShowAdminAccountMethodsMenu() {
@@ -49,6 +50,7 @@ public class UI {
         System.out.println("E: Reactivate a suspended User");
         System.out.println("F:Delete User ");
         System.out.println("G:Show All Drivers ");
+        System.out.println("H:Show All Rides ");
 
     }
 
@@ -60,6 +62,7 @@ public class UI {
         System.out.println("D:Remove Favourite Area ");
         System.out.println("E:Show My Favourite Areas ");
         System.out.println("F:Make offer for My Rides ");
+        System.out.println("G:Show My Rides' History ");
     }
 
     void loginFaluireMenu(){
@@ -67,5 +70,11 @@ public class UI {
         System.out.println("A:Try Again ");
         System.out.println("B:Exit ");
     }
+/*
+    void ShowRequestRideMenu(){
+        System.out.println("A:Show Driver Information ");
+        System.out.println("B:Show My Ratings ");
+    }
 
+ */
 }

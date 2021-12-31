@@ -1,5 +1,7 @@
 package sw2phases;
 
+import java.util.ArrayList;
+
 public class Utility {
 
     private Users user;
@@ -38,6 +40,16 @@ public class Utility {
 
         return false;
     }
+
+    boolean match(Ride ride, ArrayList<Ride> rides){
+        for (int i=0;i<rides.size();i++) {
+            if (rides.get(i).getClient().equals(ride.getClient()) && rides.get(i).getSource().equals(ride.getSource()) && rides.get(i).getDestination().equals(ride.getDestination())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 
     boolean verifyRate(float rate){
         if(rate>=1&&rate<=5) {
