@@ -1,6 +1,7 @@
 package sw2phases;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 
 public class Ride {
@@ -13,6 +14,7 @@ public class Ride {
 	private Client client;
 	private Date requestedTime;
 	private Date pickUpTime;
+	private Date rideDuration;
 	private Date reachedDestinationTime;
 	private int numOfPassengers;
 	private ArrayList<Discount> discounts;
@@ -61,6 +63,7 @@ public class Ride {
 		//setRideSystem(client.getSystem());
 		rideController= new RideController(this,getClient());
 		discounts=new ArrayList<>();
+		rideDuration=null;
 		//setPriceAfterDiscount();
 
 		this.driver=d;
@@ -168,8 +171,19 @@ public class Ride {
 		return this.pickUpTime;
 	}
 
+	void setRideDurationTime(){
+		//Calendar calendar = Calendar.getInstance();
+		this.rideDuration = new Date(getReachedDestinationTime().getTime()-getPickUpTime().getTime());
+		//calendar.setTime(rideDuration);
+	}
+
+	Date getRideDurationime(){
+		return this.rideDuration;
+	}
+
 	void setReachedDestinationTime(Date reachedDestinationTime){
 		this.reachedDestinationTime=reachedDestinationTime;
+		setRideDurationTime();
 	}
 
 	Date getReachedDestinationTime(){
@@ -254,6 +268,21 @@ public class Ride {
 			System.out.println("Time Stamp : " + getRequestedTime());
 		}
 
+		if(getPickUpTime()!=null){
+			System.out.println("Pick Up Time Stamp : " + getPickUpTime());
+		}
+
+		if(getReachedDestinationTime()!=null){
+			System.out.println("Arrived Time Stamp : " + getReachedDestinationTime());
+			Calendar calendar = Calendar.getInstance();
+			//rideDuration = new Date(getReachedDestinationTime().getTime()-getPickUpTime().getTime());
+			calendar.setTime(getRideDurationime());
+			System.out.println("Ride Duration  : " + calendar.get(Calendar.HOUR_OF_DAY) + ":"+calendar.get(Calendar.MINUTE)+":"+calendar.get(Calendar.SECOND));
+		}
+
+
+
+		System.out.println("Number Of Passengers : " + getNumOfPassengers());
 		System.out.println("//////////////////////");
 		System.out.println("Client Info :");
 		client.DisplaySpecificData();
@@ -263,7 +292,41 @@ public class Ride {
 		System.out.println("//////////////////////");
 	}
 
+	void displayMainRideData(){
+		System.out.println("Ride Number : #" +getRideNumber());
+		System.out.println("Source Location : " +getSource());
+		System.out.println("Destination Location : " +getDestination());
+		System.out.println("Original Price : "+getRidePrice());
 
+
+		if(calculateDiscountPercentage()!=0) {
+
+			System.out.println("Discount : " + calculateDiscount());
+			System.out.println("Price After Discount : " + getPriceAfterDiscount());
+		}
+
+		if(getRequestedTime()!=null) {
+			System.out.println("Requested Time Stamp : " + getRequestedTime());
+		}
+
+		if(getPickUpTime()!=null){
+			System.out.println("Pick Up Time Stamp : " + getPickUpTime());
+		}
+
+		if(getReachedDestinationTime()!=null){
+			System.out.println("Arrived Time Stamp : " + getReachedDestinationTime());
+
+			Calendar calendar = Calendar.getInstance();
+			rideDuration = new Date(getReachedDestinationTime().getTime()-getPickUpTime().getTime());
+			calendar.setTime(rideDuration);
+
+			System.out.println("Ride Duration  : " + calendar.get(Calendar.HOUR_OF_DAY) + ":"+calendar.get(Calendar.MINUTE)+":"+calendar.get(Calendar.SECOND));
+		}
+
+
+
+		System.out.println("Number Of Passengers : " + getNumOfPassengers());
+	}
 
 	TransportationSystem getSystem() {
 		return this.system;

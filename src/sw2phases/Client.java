@@ -1,7 +1,6 @@
 package sw2phases;
 
-import java.util.ArrayList;
-import java.util.Calendar;
+
 import java.util.Date;
 
 public class Client extends Users {
@@ -59,7 +58,7 @@ public class Client extends Users {
 		System.out.println("Name : " + super.getName());
 		System.out.println("Email : " + super.getEmail());
 		System.out.println("Phone Number : " + super.getPhoneNumber());
-		System.out.println("Account Type : " + super.getType());
+		//System.out.println("Account Type : " + super.getType());
 	}
 
 	@Override
@@ -158,7 +157,9 @@ public class Client extends Users {
 
 
 				if (ride.getClient() != null) {
-					System.out.print("The Request is Completed Successfully\n/******************************/\nDriver Info :\n");
+					System.out.print("The Request is Completed Successfully\n/******************************/\nRide Info :\n");
+					ride.displayMainRideData();
+					System.out.print("/******************************/\nDriver Info :\n");
 					ride.getDriver().DisplaySpecificData();
 					System.out.print("/******************************/");
 					ride.getClient().setFirstRide(false);

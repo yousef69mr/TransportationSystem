@@ -27,7 +27,7 @@ public class Driver extends Users {
 		//setAccount();
 	}
 	
-	public Driver(String name,String phone,String email,String pass,String id,String licence) {
+	public Driver(String name,String phone,String email,String pass,String id,String licence,TransportationSystem system) {
 		setName(name);
 		setEmail(email);
 		setPhoneNumber(phone);
@@ -39,6 +39,7 @@ public class Driver extends Users {
 
 		setRideData();
 
+		setSystem(system);
 		//setAccount();
 		this.systemController=new SystemController(getSystem());
 		this.utility=new Utility(this);
@@ -223,7 +224,7 @@ public class Driver extends Users {
 	@Override
 	Users signUp(Users user) {
 		if(user.getClass().equals(Driver.class)){
-			Driver d=new Driver(user.getName(), user.getPhoneNumber(), user.getEmail(), user.getPassword(), ((Driver) user).getNationalID(), ((Driver) user).getDriverLicence());
+			Driver d=new Driver(user.getName(), user.getPhoneNumber(), user.getEmail(), user.getPassword(), ((Driver) user).getNationalID(), ((Driver) user).getDriverLicence(),user.getSystem());
 			d.setSystem(user.getSystem());
 			if(d.isValidInput()) {
 				//	users.add(d);
@@ -293,10 +294,12 @@ public class Driver extends Users {
 		ArrayList<Ride> r=new ArrayList<>(rides);
 
 		System.out.println("/**********************************/");
-		System.out.println("\nRides List:");
+		System.out.println("Rides List:");
 		System.out.println("/**********************************/");
 		for(i=0;i<r.size();i++) {
 			System.out.println(i+1+")"+" Ride No.: "+r.get(i).getRideNumber()+"\n"+r.get(i).getSource()+"-->"+r.get(i).getDestination()+" Client : "+r.get(i).getClient().getName() );
+			System.out.println("Number Of Passengers : "+r.get(i).getNumOfPassengers());
+			System.out.println("/**********************************/");
 		}
 	}
 
@@ -330,6 +333,16 @@ public class Driver extends Users {
 		return null;
 	}
 
+	boolean isActive(){
+		for(int i=0;i<getAllConfirmedRides().size();i++){
+			if(getAllConfirmedRides().get(i).getReachedDestinationTime()==null){
+				return true;
+			}
+		}
+		return false;
+	}
+
+
 	@Override
 	public void update(Ride ride,float price) {
 
@@ -343,7 +356,7 @@ public class Driver extends Users {
 
 						rides.get(i).setRidePrice(price);
 
-						System.out.println(ride.getDriver().getType() + " : " + ride.getDriver().getName() + " offers " + price);
+						//System.out.println(ride.getDriver().getType() + " : " + ride.getDriver().getName() + " offers " + price);
 						ride.getDriver().getRideData().getOffers().add(ride.getDriver().getType() + " : " + ride.getDriver().getName() + " offers " + price);
 
 						ride.getDriver().getRideData().attachRide(rides.get(i));

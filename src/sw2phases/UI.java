@@ -52,6 +52,7 @@ public class UI {
         System.out.println("G:Show All Drivers ");
         System.out.println("H:Show All Rides ");
         System.out.println("I:Add Discount For Specific Area ");
+        System.out.println("J:Remove Discount For Specific Area ");
 
     }
 
@@ -79,11 +80,5 @@ public class UI {
         System.out.println("A:Try Again ");
         System.out.println("B:Exit ");
     }
-/*
-    void ShowRequestRideMenu(){
-        System.out.println("A:Show Driver Information ");
-        System.out.println("B:Show My Ratings ");
-    }
 
- */
 }

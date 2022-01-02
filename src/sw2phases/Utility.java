@@ -42,7 +42,7 @@ public class Utility {
     }
 
     boolean verifyDateFormat(String day,String month,String year){
-        if(day.length()<=2&&day.length()>0&&month.length()<=2&&month.length()>0&&year.length()==4){
+            if(day.length()<=2&&day.length()>0&&month.length()<=2&&month.length()>0&&year.length()==4){
             return true;
         }
 

@@ -125,8 +125,8 @@ public class Main {
 
 									System.out.println("Account created successfully");
 
-									//admin.getSystemController().verifyDriver(d);
-									//d.addFavouriteArea("milano");
+									admin.getSystemController().verifyDriver(d);
+									d.addFavouriteArea("milano");
 
 									break;
 								}
@@ -137,7 +137,9 @@ public class Main {
 						case ('B'):
 							Client c = new Client();
 							c.setSystem(system);
-							while (true) {
+							Client c1 = new Client();
+							c1.setSystem(system);
+
 /*
 								String name="";
 								while (!c.getUtility().verifyName(name)){
@@ -198,24 +200,36 @@ public class Main {
 								c.setBirthDay(new BirthDay(day,month,year));
 
 */
-								c.setName("ali");
-								c.setEmail("sd@x.com");
-								c.setPassword("2020");
-								c.setPhoneNumber("01234567896");
-								c.setBirthDay(new BirthDay("13","4","2001"));
+
+							c1.setName("yousef");
+							c1.setEmail("sd@x.com");
+							c1.setPassword("2001");
+							c1.setPhoneNumber("01234567896");
+							c1.setBirthDay(new BirthDay("2","1","2001"));
 
 
-								c=(Client) c.signUp(c);
-								//c = (Client) c.getAccount().signUp(c.getType(),  "ali", "01234567896", "sd@x.com", "2020", null, null);
-								//c = (Client) c.getAccount().signUp(c.getType(), name, phone, email, pass, null, null);
+							c1=(Client) c1.signUp(c1);
 
-								//System.out.print(c.getAccount());
+							System.out.println("Account created successfully");
+
+							c.setName("ali");
+							c.setEmail("sd@x.com");
+							c.setPassword("2020");
+							c.setPhoneNumber("01234567896");
+							c.setBirthDay(new BirthDay("13","4","2001"));
 
 
-								System.out.println("Account created successfully");
-								break;
+							c=(Client) c.signUp(c);
+							//c = (Client) c.getAccount().signUp(c.getType(),  "ali", "01234567896", "sd@x.com", "2020", null, null);
+							//c = (Client) c.getAccount().signUp(c.getType(), name, phone, email, pass, null, null);
 
-							}
+							//System.out.print(c.getAccount());
+
+
+							System.out.println("Account created successfully");
+
+
+
 
 							break;
 							//admin.approveDriver(d);
@@ -331,22 +345,14 @@ public class Main {
 									String area = scan.next();
 
 									admin.getSystemController().addDiscountForArea(area);
-									/*
-									float discount= 0.1f;
-									while (true) {
-										System.out.println("Enter Discount [%]");
-										discount = scan.nextFloat();
-										if (discount<=100&&discount>0){
-											break;
-										}else{
-											System.out.println("Out Of Range [0.1 to 100]");
-										}
-									}
 
-									 */
-									//admin.getSystemController().applyDiscountForArea(area ,discount);
+									break;
 
+								case('J'):
+									System.out.println("Enter Area Name");
+									area = scan.next();
 
+									admin.getSystemController().removeDiscountForArea(area);
 
 									break;
 
@@ -459,6 +465,8 @@ public class Main {
 
 									case('H'):
 
+										driver.fixPendingRides();
+
 										if(driver.getRideController().getActiveRide(driver)!=null) {
 
 											system.getUI().ShowDriverActiveRideMethodsMenu();
@@ -469,7 +477,7 @@ public class Main {
 													Date pickUpDate =new Date();
 
 													driver.getSystemController().getSpecificRide(driver.getRideController().getActiveRide(driver)).setPickUpTime(pickUpDate);
-													driver.getRideController().getActiveRide(driver).setPickUpTime(pickUpDate);
+													//driver.getRideController().getActiveRide(driver).setPickUpTime(pickUpDate);
 
 													System.out.println("Pick Up Time : "+pickUpDate);
 													break;
@@ -477,7 +485,7 @@ public class Main {
 
 													Date arrivedDate =new Date();
 													driver.getSystemController().getSpecificRide(driver.getRideController().getActiveRide(driver)).setReachedDestinationTime(arrivedDate);
-													driver.getRideController().getActiveRide(driver).setReachedDestinationTime(arrivedDate);
+													//driver.getRideController().getActiveRide(driver).setReachedDestinationTime(arrivedDate);
 
 													System.out.println("Arrived Time : "+arrivedDate);
 													break;
@@ -592,7 +600,7 @@ public class Main {
 
 									case ('F'):
 
-										if(client.getRideData().getOffers()!=null) {
+										if(!client.getRideData().getOffers().isEmpty()) {
 											client.getRideData().displayOffers();
 
 											System.out.println("Choose your deal [Price]");

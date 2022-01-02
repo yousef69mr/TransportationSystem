@@ -13,6 +13,10 @@ public class AreasDiscount extends DiscountDecoder{
         discountValue=10;
     }
 
+    ArrayList<String> getAreas(){
+        return this.areas;
+    }
+
     void addArea(String area){
         areas.add(area);
         System.out.println("Area added Successfully");

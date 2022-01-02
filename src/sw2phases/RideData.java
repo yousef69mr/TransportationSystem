@@ -54,7 +54,7 @@ public class RideData implements Subject{
     void displayOffers(){
 
         System.out.println("/**********************************/");
-        System.out.println("Driver Offers :");
+        System.out.println("Drivers Offers :");
         System.out.println("/**********************************/");
         for(int i=0;i<offers.size();i++){
             System.out.println(offers.get(i));

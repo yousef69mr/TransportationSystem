@@ -33,12 +33,11 @@ public class RideController {
 
                     if(isFavourite(ride, user.getSystem().getDatabase().getAllDrivers().get(i))) {
 
-                        for(int k=0;k<user.getSystem().getDatabase().getAllDrivers().get(i).getAllConfirmedRides().size();k++) {
 
-                            if (user.getSystem().getDatabase().getAllDrivers().get(i).getAllConfirmedRides().get(k).getReachedDestinationTime()!=null) {
-                                matchedDrivers.add(user.getSystem().getDatabase().getAllDrivers().get(i));
-                            }
+                        if (!user.getSystem().getDatabase().getAllDrivers().get(i).isActive()) {
+                            matchedDrivers.add(user.getSystem().getDatabase().getAllDrivers().get(i));
                         }
+
                     }
                 }
 
@@ -107,8 +106,10 @@ public class RideController {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(today);
 
+       // int todayMonth=calendar.get(Calendar.MONTH);
+       // int todayDay=calendar.get(Calendar.DAY_OF_MONTH);
 
-        if(calendar.get(Calendar.DAY_OF_MONTH)+1==Integer.parseInt(day) && calendar.get(Calendar.MONTH)+1==Integer.parseInt(month)){
+        if(calendar.get(Calendar.DAY_OF_MONTH)==Integer.parseInt(day) && calendar.get(Calendar.MONTH)+1==Integer.parseInt(month)){
             ride.getDiscounts().add(new BirthDayDiscount(new BasicDiscount()));
             System.out.println("Happy BirthDay  :)");
         }

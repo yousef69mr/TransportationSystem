@@ -1,6 +1,5 @@
 package sw2phases;
 
-import java.util.ArrayList;
 
 public class SystemController {
     private TransportationSystem system;
@@ -22,7 +21,7 @@ public class SystemController {
     
 
     /*********** Admin Functions **********/
-    // function to to add the drver in the system
+    // function to to add the driver in the system
     void verifyDriver(Driver d) {
         if(system.getDatabase().getAllRequests().contains(d)) {
 
@@ -110,40 +109,15 @@ public class SystemController {
     }
 
 
-    void applyDiscountForArea(String area ,float discount){
-        int i,j;
-
-        for(i=0;i<system.getDatabase().getAllRides().size();i++){
-            if(system.getDatabase().getAllRides().get(i).getSource().equalsIgnoreCase(area)){
-               // system.getDatabase().getAllRides().get(i).setDiscount(discount);
-            }
-        }
-
-        for(i=0;i<system.getDatabase().getAllDrivers().size();i++){
-            for (j=0;j<system.getDatabase().getAllDrivers().get(i).getAllConfirmedRides().size();j++) {
-                if (system.getDatabase().getAllDrivers().get(i).getAllConfirmedRides().get(i).getSource().equalsIgnoreCase(area)) {
-                   // system.getDatabase().getAllDrivers().get(i).getAllConfirmedRides().get(i).setDiscount(discount);
-                }
-            }
-        }
-
-        for(i=0;i<system.getDatabase().getAllDrivers().size();i++){
-            for (j=0;j<system.getDatabase().getAllDrivers().get(i).getAllRides().size();j++) {
-                if (system.getDatabase().getAllRides().get(i).getSource().equalsIgnoreCase(area)) {
-                   // system.getDatabase().getAllRides().get(i).setDiscount(discount);
-                }
-            }
-        }
-
-    }
-
     public void addDiscountForArea(String area) {
 
-        system.getDatabase().getAreasDiscount().addArea(area);
+        system.getDatabase().getAreasDiscount().addArea(area.toLowerCase());
     }
 
     public void removeDiscountForArea(String area) {
-        system.getDatabase().getAreasDiscount().removeArea(area);
+        if(system.getDatabase().getAreasDiscount().getAreas().contains(area.toLowerCase())) {
+            system.getDatabase().getAreasDiscount().removeArea(area);
+        }
     }
 
     Ride getSpecificRide(Ride ride){
