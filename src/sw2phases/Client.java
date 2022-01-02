@@ -1,11 +1,14 @@
 package sw2phases;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 
 public class Client extends Users {
 
 	private Ride ride;
+	private boolean firstRide;
+	private BirthDay birthDay;
 	private Ratings rate;
 
 	private RateController rateController;
@@ -17,10 +20,12 @@ public class Client extends Users {
 		this.utility = new Utility(this);
 		this.rideController = new RideController(ride, this);
 		this.rateController = new RateController(this);
+		firstRide=true;
+		this.birthDay=new BirthDay();
 		//setAccount();
 	}
 
-	Client(String name, String phone, String email, String pass) {
+	Client(String name, String phone, String email, String pass,BirthDay birthDay) {
 		setName(name);
 		setEmail(email);
 		setPhoneNumber(phone);
@@ -33,6 +38,8 @@ public class Client extends Users {
 		this.utility = new Utility(this);
 		this.rideController = new RideController(ride, this);
 		this.rateController = new RateController(this);
+		firstRide=true;
+		this.birthDay=birthDay;
 	}
 
 
@@ -43,6 +50,7 @@ public class Client extends Users {
 		System.out.println("Email : " + super.getEmail());
 		System.out.println("Password : " + super.getPassword());
 		System.out.println("Phone Number : " + super.getPhoneNumber());
+		System.out.println("BirthDay : " + getBirthDay().getDay()+"/"+getBirthDay().getMonth()+"/"+getBirthDay().getYear());
 		System.out.println("Account Type : " + super.getType());
 	}
 
@@ -60,9 +68,17 @@ public class Client extends Users {
 		Type = "Client";
 	}
 
+	void setBirthDay(BirthDay birthDay){
+		this.birthDay=birthDay;
+	}
+
+	BirthDay getBirthDay(){
+		return this.birthDay;
+	}
+
 	@Override
 	Users signUp(Users user) {
-		Client c = new Client(user.getName(), user.getPhoneNumber(), user.getEmail(), user.getPassword());
+		Client c = new Client(user.getName(), user.getPhoneNumber(), user.getEmail(), user.getPassword(),((Client)user).getBirthDay());
 		c.setSystem(user.getSystem());
 		if (c.isValidInput()) {
 			if (!user.getSystem().getDatabase().getAllUsers().contains(c) || !user.getSystem().getDatabase().getAllClients().contains(c)) {
@@ -74,6 +90,14 @@ public class Client extends Users {
 			return null;
 		}
 
+	}
+
+	public boolean isFirstRide() {
+		return firstRide;
+	}
+
+	public void setFirstRide(boolean firstRide) {
+		this.firstRide = firstRide;
 	}
 
 	Ride getRide() {
@@ -111,7 +135,13 @@ public class Client extends Users {
 
 				ride = ride.getDriver().getRideData().search(price);
 
-				ride.setDate(new Date());
+
+				ride.getClient().getRideController().applyDiscounts(ride);
+
+				//after discounts
+				ride.setPriceAfterDiscount();
+
+				ride.setRequestedTime(new Date());
 				ride.setRideSystem(ride.getDriver().getSystem());
 				ride.setDriver(ride.getDriver());
 				ride.getDriver().setConfirmedRides(ride);
@@ -133,6 +163,7 @@ public class Client extends Users {
 					System.out.print("/******************************/");
 				}
 
+				ride.getClient().setFirstRide(false);
 				//ride.getDriver().removeRide(ride);
 
 			} else {

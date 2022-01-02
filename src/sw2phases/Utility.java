@@ -41,6 +41,14 @@ public class Utility {
         return false;
     }
 
+    boolean verifyDateFormat(String day,String month,String year){
+        if(day.length()<=2&&day.length()>0&&month.length()<=2&&month.length()>0&&year.length()==4){
+            return true;
+        }
+
+        return false;
+    }
+
     boolean match(Ride ride, ArrayList<Ride> rides){
         for (int i=0;i<rides.size();i++) {
             if (rides.get(i).getClient().equals(ride.getClient()) && rides.get(i).getSource().equals(ride.getSource()) && rides.get(i).getDestination().equals(ride.getDestination())) {

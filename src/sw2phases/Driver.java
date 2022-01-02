@@ -121,7 +121,7 @@ public class Driver extends Users {
 		System.out.println("/**********************************/");
 		for(int i=0;i<confirmedRides.size();i++){
 			System.out.println(i+1+")"+" Ride No.: "+confirmedRides.get(i).getRideNumber()+"\n"+confirmedRides.get(i).getSource()+"-->"+confirmedRides.get(i).getDestination()+" Client : "+confirmedRides.get(i).getClient().getName());
-			System.out.println("Confirmation Time : "+confirmedRides.get(i).getDate());
+			System.out.println("Confirmation Time : "+confirmedRides.get(i).getRequestedTime());
 			System.out.println("/**********************************/");
 
 		}
@@ -282,7 +282,7 @@ public class Driver extends Users {
 		ArrayList<Ride> r=new ArrayList<>(rides);
 
 		for(i=0;i<r.size();i++) {
-			if(r.get(i).getDate()!=null){
+			if(r.get(i).getRequestedTime()!=null){
 				rides.remove(r.get(i));
 			}
 		}

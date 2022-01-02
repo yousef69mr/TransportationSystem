@@ -12,6 +12,8 @@ public class TransportationSystem {
 	private static TransportationSystem uniqueSystem;
 	private DataBase database;
 	private SystemController systemController;
+
+
 	
 	private TransportationSystem(String n){
 		
@@ -20,6 +22,7 @@ public class TransportationSystem {
 		admin =new Administrator(this);
 		database=new DataBase(this);
 		systemController=new SystemController(this);
+
 
 	}
 	

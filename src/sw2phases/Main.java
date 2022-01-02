@@ -34,12 +34,12 @@ public class Main {
 						case ('A'):
 							Driver d = new Driver();
 							d.setSystem(system);
-							/*
+
 							Driver d2 = new Driver();
 							d2.setSystem(system);
-							*/
-							while (true) {
 
+							while (true) {
+/*
 								String name="";
 								while (!d.getUtility().verifyName(name)){
 									System.out.println("Enter your Name");
@@ -92,7 +92,7 @@ public class Main {
 								d.setNationalID(id);
 								d.setDriverLicence(licence);
 
-/*
+*/
 								d2.setName("ezz");
 								d2.setEmail("sd@x.com");
 								d2.setPassword("0123");
@@ -115,7 +115,7 @@ public class Main {
 								d.setNationalID("01234569871230");
 								d.setDriverLicence("licence");
 
-*/
+
 								//d = (Driver) d.getAccount().signUp(d.getType(),  "name", "01234567896", "sd@x.com", "0123", "01234569871230", "licence");
 								d=(Driver) d.signUp(d);
 							//	d = (Driver) d.getAccount().signUp(d.getType(),  name,phone, email, pass, id, licence);
@@ -138,7 +138,7 @@ public class Main {
 							Client c = new Client();
 							c.setSystem(system);
 							while (true) {
-
+/*
 								String name="";
 								while (!c.getUtility().verifyName(name)){
 									System.out.println("Enter your Name");
@@ -172,17 +172,38 @@ public class Main {
 								System.out.println("Enter your Password");
 								String pass = scan.next();
 
+								String day="";
+								String month="";
+								String year="";
+
+								while (!c.getUtility().verifyDateFormat(day,month,year)){
+									System.out.println("Enter your BirthDay Details :");
+									System.out.print("Enter Day : ");
+									day = scan.next();
+									System.out.print("Enter Month : ");
+									month = scan.next();
+									System.out.print("Enter Year : ");
+									year = scan.next();
+
+									if(!c.getUtility().verifyDateFormat(day,month,year)){
+										System.out.println("Invalid Date Format !!");
+									}
+
+								}
+
 								c.setName(name);
 								c.setEmail(email);
 								c.setPassword(pass);
 								c.setPhoneNumber(phone);
+								c.setBirthDay(new BirthDay(day,month,year));
 
-/*
+*/
 								c.setName("ali");
 								c.setEmail("sd@x.com");
 								c.setPassword("2020");
 								c.setPhoneNumber("01234567896");
-*/
+								c.setBirthDay(new BirthDay("13","4","2001"));
+
 
 								c=(Client) c.signUp(c);
 								//c = (Client) c.getAccount().signUp(c.getType(),  "ali", "01234567896", "sd@x.com", "2020", null, null);
@@ -305,6 +326,30 @@ public class Main {
 									admin.getSystemController().displayRides();
 									break;
 
+								case('I'):
+									System.out.println("Enter Area Name");
+									String area = scan.next();
+
+									admin.getSystemController().addDiscountForArea(area);
+									/*
+									float discount= 0.1f;
+									while (true) {
+										System.out.println("Enter Discount [%]");
+										discount = scan.nextFloat();
+										if (discount<=100&&discount>0){
+											break;
+										}else{
+											System.out.println("Out Of Range [0.1 to 100]");
+										}
+									}
+
+									 */
+									//admin.getSystemController().applyDiscountForArea(area ,discount);
+
+
+
+									break;
+
 
 							}
 
@@ -411,6 +456,40 @@ public class Main {
 											System.out.println("There is no Previous Rides for this Driver");
 										}
 										break;
+
+									case('H'):
+
+										if(driver.getRideController().getActiveRide(driver)!=null) {
+
+											system.getUI().ShowDriverActiveRideMethodsMenu();
+											char choice = scan.next().charAt(0);
+
+											switch (choice) {
+												case ('A'):
+													Date pickUpDate =new Date();
+
+													driver.getSystemController().getSpecificRide(driver.getRideController().getActiveRide(driver)).setPickUpTime(pickUpDate);
+													driver.getRideController().getActiveRide(driver).setPickUpTime(pickUpDate);
+
+													System.out.println("Pick Up Time : "+pickUpDate);
+													break;
+												case ('B'):
+
+													Date arrivedDate =new Date();
+													driver.getSystemController().getSpecificRide(driver.getRideController().getActiveRide(driver)).setReachedDestinationTime(arrivedDate);
+													driver.getRideController().getActiveRide(driver).setReachedDestinationTime(arrivedDate);
+
+													System.out.println("Arrived Time : "+arrivedDate);
+													break;
+
+												case ('C'):
+
+													break;
+											}
+										}else{
+											System.out.println("There is no Active Rides");
+										}
+										break;
 								}
 
 								System.out.println("Do you need any other Services ?");
@@ -463,10 +542,12 @@ public class Main {
 										String src = scan.next();
 										System.out.println("Enter your Destination Location");
 										String destination = scan.next();
+										System.out.println("Enter Number of Passengers");
+										int passengerNumber = scan.nextInt();
 										ArrayList<Driver> matched =client.getRideController().getAllDriversMatchesItsFavouriteArea(client,src);
 
 										//client.getRideController().requestRide(client,src, destination);
-										client.getRideController().createPotintialRides(client,src,destination,matched);
+										client.getRideController().createPotintialRides(client,src,destination,matched,passengerNumber);
 										break;
 
 									case ('C'):

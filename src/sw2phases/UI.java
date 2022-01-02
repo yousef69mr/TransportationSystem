@@ -51,6 +51,7 @@ public class UI {
         System.out.println("F:Delete User ");
         System.out.println("G:Show All Drivers ");
         System.out.println("H:Show All Rides ");
+        System.out.println("I:Add Discount For Specific Area ");
 
     }
 
@@ -63,7 +64,15 @@ public class UI {
         System.out.println("E:Show My Favourite Areas ");
         System.out.println("F:Make offer for My Rides ");
         System.out.println("G:Show My Rides' History ");
+        System.out.println("H:Show My Active Ride ");
     }
+
+    void ShowDriverActiveRideMethodsMenu(){
+        System.out.println("A:Reached Pick Up Location  ");
+        System.out.println("B:Reached Destination Location ");
+        System.out.println("C:Exit ");
+    }
+
 
     void loginFaluireMenu(){
         System.out.println("Incorrect Name or Password ");

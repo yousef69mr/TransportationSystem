@@ -19,6 +19,8 @@ public class DataBase {
     private ArrayList<Users> confirmed;
     private ArrayList<Users> deleted;
 
+    private AreasDiscount areasDiscount;
+
 
     DataBase(TransportationSystem system){
         this.system=system;
@@ -30,6 +32,7 @@ public class DataBase {
         requests=new ArrayList<>();
         confirmed=new ArrayList<>();
         deleted=new ArrayList<>();
+        areasDiscount=new AreasDiscount(new BasicDiscount());
     }
 
 
@@ -121,5 +124,9 @@ public class DataBase {
 
     ArrayList<Ride> getAllRides(){
         return rides;
+    }
+
+    AreasDiscount getAreasDiscount(){
+        return this.areasDiscount;
     }
 }

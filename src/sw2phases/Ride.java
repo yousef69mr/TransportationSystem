@@ -1,5 +1,6 @@
 package sw2phases;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 public class Ride {
@@ -7,9 +8,14 @@ public class Ride {
 	private String source;
 	private String destination;
 	private float ridePrice;
+	private float priceAfterDiscount;
 	private Driver driver;
 	private Client client;
-	private Date date;
+	private Date requestedTime;
+	private Date pickUpTime;
+	private Date reachedDestinationTime;
+	private int numOfPassengers;
+	private ArrayList<Discount> discounts;
 	private static int rideNumber;
 	private RideController rideController;
 	private TransportationSystem system;
@@ -29,24 +35,33 @@ public class Ride {
 */
 	Ride(Client c,String src){
 
-		setDate(null);
+		setRequestedTime(null);
+		setPickUpTime(null);
+		setReachedDestinationTime(null);
 		setSource(src);
 		setRidePrice(0f);
 		setClient(c);
 		rideController= new RideController(this,getClient());
+		discounts=new ArrayList<>();
+		//setPriceAfterDiscount();
 		LinkRideToDriver();
 		rideNumber++;
 	}
 
-	Ride(Client c,Driver d,String src,String dest){
+	Ride(Client c,Driver d,String src,String dest,int numOfPassengers){
 
-		setDate(null);
+		setRequestedTime(null);
+		setPickUpTime(null);
+		setReachedDestinationTime(null);
 		setSource(src);
 		setDestination(dest);
 		setRidePrice(0f);
 		setClient(c);
+		setNumOfPassengers(numOfPassengers);
 		//setRideSystem(client.getSystem());
 		rideController= new RideController(this,getClient());
+		discounts=new ArrayList<>();
+		//setPriceAfterDiscount();
 
 		this.driver=d;
 		setDriver(driver);
@@ -57,11 +72,23 @@ public class Ride {
 	RideController getRideController()
 	{
 		return rideController;
-	}	/*
+	}
+
+	void setNumOfPassengers(int num){
+		this.numOfPassengers=num;
+	}
+
+	int getNumOfPassengers(){
+		return this.numOfPassengers;
+	}
+
+	/*
 	Ride(Driver d){
 		this.driver=d;
 		setDriver(d);
 	}
+
+
 	*/
 	// set the new ride in the the ArrayList in TransportationSystem class.
 	public void setRideSystem(TransportationSystem newSystem) {
@@ -125,18 +152,38 @@ public class Ride {
 	}
 
 
-	void setDate(Date date){
-		this.date=date;
+	void setRequestedTime(Date requestedTime){
+		this.requestedTime=requestedTime;
 	}
 
-	Date getDate(){
-		return this.date;
+	Date getRequestedTime(){
+		return this.requestedTime;
+	}
+
+	void setPickUpTime(Date pickUpTime){
+		this.pickUpTime=pickUpTime;
+	}
+
+	Date getPickUpTime(){
+		return this.pickUpTime;
+	}
+
+	void setReachedDestinationTime(Date reachedDestinationTime){
+		this.reachedDestinationTime=reachedDestinationTime;
+	}
+
+	Date getReachedDestinationTime(){
+		return this.reachedDestinationTime;
 	}
 
 	void setSource(String s) {
 		
 		this.source=s;
 		
+	}
+
+	ArrayList<Discount> getDiscounts(){
+		return this.discounts;
 	}
 	
 	String getSource() {
@@ -152,7 +199,39 @@ public class Ride {
 	String getDestination() {
 		return this.destination;
 	}
-	
+
+	void setPriceAfterDiscount(){
+		if(getRidePrice()!=0) {
+			this.priceAfterDiscount = getRidePrice() - calculateDiscount();
+		}
+	}
+
+	float getPriceAfterDiscount(){
+		setPriceAfterDiscount();
+		return this.priceAfterDiscount;
+	}
+/*
+	public void setDiscount(float discount) {
+		this.discount = discount;
+	}
+
+	public float getDiscount() {
+		return this.discount;
+	}
+*/
+	float calculateDiscountPercentage(){
+		float sum=0;
+
+		for (int i=0;i<discounts.size();i++){
+			sum+=discounts.get(i).getDiscountPercentage();
+		}
+		return sum;
+	}
+
+	float calculateDiscount(){
+		return (calculateDiscountPercentage()/100)*getRidePrice();
+	}
+
 	int getRideNumber() {
 		return this.rideNumber;
 	}
@@ -163,7 +242,18 @@ public class Ride {
 		System.out.println("Source Location : " +getSource());
 		System.out.println("Destination Location : " +getDestination());
 		System.out.println("Price : "+getRidePrice());
-		System.out.println("Time Stamp : "+getDate());
+
+
+		if(calculateDiscountPercentage()!=0) {
+
+			System.out.println("Discount : " + calculateDiscount());
+			System.out.println("Price After Discount : " + getPriceAfterDiscount());
+		}
+
+		if(getRequestedTime()!=null) {
+			System.out.println("Time Stamp : " + getRequestedTime());
+		}
+
 		System.out.println("//////////////////////");
 		System.out.println("Client Info :");
 		client.DisplaySpecificData();

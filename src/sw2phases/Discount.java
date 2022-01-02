@@ -1,2 +1,5 @@
-package sw2phases;public interface Discount {
+package sw2phases;
+
+public interface Discount {
+    float getDiscountPercentage();
 }

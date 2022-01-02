@@ -1,6 +1,8 @@
 package sw2phases;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 public class RideController {
 
@@ -23,13 +25,20 @@ public class RideController {
         ride = new Ride(c, src);
 
         if(!user.getSystem().getDatabase().getAllDrivers().isEmpty()) {
+            
             for(int i=0;i<user.getSystem().getDatabase().getAllDrivers().size();i++) {
 
 
                 for(int j=0;j<user.getSystem().getDatabase().getAllDrivers().get(i).getFavouriteAreas().size();j++) {
 
                     if(isFavourite(ride, user.getSystem().getDatabase().getAllDrivers().get(i))) {
-                        matchedDrivers.add(user.getSystem().getDatabase().getAllDrivers().get(i));
+
+                        for(int k=0;k<user.getSystem().getDatabase().getAllDrivers().get(i).getAllConfirmedRides().size();k++) {
+
+                            if (user.getSystem().getDatabase().getAllDrivers().get(i).getAllConfirmedRides().get(k).getReachedDestinationTime()!=null) {
+                                matchedDrivers.add(user.getSystem().getDatabase().getAllDrivers().get(i));
+                            }
+                        }
                     }
                 }
 
@@ -61,6 +70,64 @@ public class RideController {
         return null;
     }
 
+    Ride getActiveRide(Driver driver){
+        for(int i=0;i<driver.getAllConfirmedRides().size();i++){
+            if(driver.getAllConfirmedRides().get(i).getReachedDestinationTime()==null){
+                return driver.getAllConfirmedRides().get(i);
+            }
+        }
+        return null;
+    }
+
+    void applyDiscounts(Ride ride){
+
+
+        /********************************** Area Discount *******************************************/
+
+        if(user.getSystem().getDatabase().getAreasDiscount().matchSource(ride)){
+            ride.getDiscounts().add(user.getSystem().getDatabase().getAreasDiscount());
+        }
+
+        if(user.getSystem().getDatabase().getAreasDiscount().matchDestination(ride)){
+            ride.getDiscounts().add(user.getSystem().getDatabase().getAreasDiscount());
+        }
+
+        if(ride.getClient().isFirstRide()){
+
+            ride.getDiscounts().add(new FirstRideDiscount(new BasicDiscount()));
+        }
+        /********************************** BirthDay Discount *******************************************/
+        //
+        String day=ride.getClient().getBirthDay().getDay();
+        String month=ride.getClient().getBirthDay().getMonth();
+
+        //Date birthday=new Date(Integer.parseInt(ride.getClient().getBirthDay().getYear()),Integer.parseInt(ride.getClient().getBirthDay().getMonth()),Integer.parseInt(ride.getClient().getBirthDay().getDay()));
+        Date today=new Date();
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(today);
+
+
+        if(calendar.get(Calendar.DAY_OF_MONTH)+1==Integer.parseInt(day) && calendar.get(Calendar.MONTH)+1==Integer.parseInt(month)){
+            ride.getDiscounts().add(new BirthDayDiscount(new BasicDiscount()));
+            System.out.println("Happy BirthDay  :)");
+        }
+
+        /********************************** Holiday Discount *******************************************/
+
+        if(calendar.get(Calendar.DAY_OF_WEEK)==5||calendar.get(Calendar.DAY_OF_WEEK)==6){
+            ride.getDiscounts().add(new HolidayDiscount(new BasicDiscount()));
+        }
+
+        /********************************** Passenger Discount *******************************************/
+
+        if(ride.getNumOfPassengers()>=2){
+            ride.getDiscounts().add(new ExtraPassengersDiscount(new BasicDiscount()));
+        }
+
+
+    }
+
 /*
     void requestRide(Client c,String src,String dest) {
         ride=new Ride(c,src,dest);
@@ -84,7 +151,7 @@ public class RideController {
     */
 
 
-    void createPotintialRides(Client c, String src, String dest, ArrayList<Driver> matched){
+    void createPotintialRides(Client c, String src, String dest, ArrayList<Driver> matched,int numOfPassengers){
         int i;
 
         RideData rideData =new RideData();
@@ -92,7 +159,7 @@ public class RideController {
         if(!matched.isEmpty()) {
             ArrayList<Ride> rides = new ArrayList<>();
             for (i = 0; i < matched.size(); i++) {
-                rides.add(new Ride(c, matched.get(i), src, dest));
+                rides.add(new Ride(c, matched.get(i), src, dest,numOfPassengers));
             }
 
 

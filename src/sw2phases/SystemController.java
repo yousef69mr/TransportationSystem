@@ -109,6 +109,52 @@ public class SystemController {
         }
     }
 
+
+    void applyDiscountForArea(String area ,float discount){
+        int i,j;
+
+        for(i=0;i<system.getDatabase().getAllRides().size();i++){
+            if(system.getDatabase().getAllRides().get(i).getSource().equalsIgnoreCase(area)){
+               // system.getDatabase().getAllRides().get(i).setDiscount(discount);
+            }
+        }
+
+        for(i=0;i<system.getDatabase().getAllDrivers().size();i++){
+            for (j=0;j<system.getDatabase().getAllDrivers().get(i).getAllConfirmedRides().size();j++) {
+                if (system.getDatabase().getAllDrivers().get(i).getAllConfirmedRides().get(i).getSource().equalsIgnoreCase(area)) {
+                   // system.getDatabase().getAllDrivers().get(i).getAllConfirmedRides().get(i).setDiscount(discount);
+                }
+            }
+        }
+
+        for(i=0;i<system.getDatabase().getAllDrivers().size();i++){
+            for (j=0;j<system.getDatabase().getAllDrivers().get(i).getAllRides().size();j++) {
+                if (system.getDatabase().getAllRides().get(i).getSource().equalsIgnoreCase(area)) {
+                   // system.getDatabase().getAllRides().get(i).setDiscount(discount);
+                }
+            }
+        }
+
+    }
+
+    public void addDiscountForArea(String area) {
+
+        system.getDatabase().getAreasDiscount().addArea(area);
+    }
+
+    public void removeDiscountForArea(String area) {
+        system.getDatabase().getAreasDiscount().removeArea(area);
+    }
+
+    Ride getSpecificRide(Ride ride){
+        for(int i=0;i<system.getDatabase().getAllRides().size();i++){
+            if(system.getDatabase().getAllRides().get(i).equals(ride)){
+                return system.getDatabase().getAllRides().get(i);
+            }
+        }
+        return null;
+    }
+
     TransportationSystem getSystem(){
         return this.system;
     }
