@@ -85,41 +85,6 @@ public class TransportationSystem {
 		return this.ui;
 	}
 
-
-	/*
-	//function to create account for the driver
-	Driver createDriverAccount(String name,String phone,String email,String pass,String id,String licence) {
-		Driver d=new Driver(name,phone,email,pass,id,licence);
-		d.setSystem(this);
-		if(d.isValidInput()) {
-		//	users.add(d);
-			if(!requests.contains(d)) {
-				requests.add(d);
-			}
-			return d;
-		}else {
-			return null;
-		}
-	}
-	*/
-	/*
-	//function to create account for the client
-	Client createClientAccount(String name,String phone,String email,String pass) {
-		Client c=new Client(name,phone,email,pass);
-		c.setSystem(this);
-		if(c.isValidInput()) {
-			if(!users.contains(c) ||!clients.contains(c)) {
-				//addUser(c);
-				admin.addClient(c);
-			}
-			return c;
-		}
-		else {
-			return null;
-		}
-	}
-		*/
-
 	// login method
 	Users getSpecificUser(String name,String pass) {
 		ArrayList<Users> u =new ArrayList<>(database.getAllUsers());
@@ -134,19 +99,6 @@ public class TransportationSystem {
 
 //drivers then rides
 
-	/*
-	ArrayList<Ride> getRideSourceMatchesFavouriteAreaOfDriver(Driver drive,ArrayList<Ride> ride){
-		ArrayList<Ride> selectedRides=new ArrayList<>();
-
-
-		for(int i=0;i<database.getAllRides().size();i++) {
-			if(drive.getRideController().isFavourite(ride.get(i), drive)) {
-				selectedRides.add(ride.get(i));
-			}
-		}
-		return selectedRides;
-	}
-*/
 	DataBase getDatabase(){
 		return this.database;
 	}
