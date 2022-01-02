@@ -21,20 +21,7 @@ public class Ride {
 	private static int rideNumber;
 	private RideController rideController;
 	private TransportationSystem system;
-/*
-	Ride(Client c,String src,String dest){
 
-		setDate(null);
-		setSource(src);
-		setDestination(dest);
-		setRidePrice(0f);
-		setClient(c);
-		setRideSystem(client.getSystem());
-		rideController= new RideController(this,getClient());
-		LinkRideToDriver();
-		//rideNumber++;
-	}
-*/
 	Ride(Client c,String src){
 
 		setRequestedTime(null);
@@ -85,14 +72,6 @@ public class Ride {
 		return this.numOfPassengers;
 	}
 
-	/*
-	Ride(Driver d){
-		this.driver=d;
-		setDriver(d);
-	}
-
-
-	*/
 	// set the new ride in the the ArrayList in TransportationSystem class.
 	public void setRideSystem(TransportationSystem newSystem) {
 		if (system != newSystem) {
