@@ -34,12 +34,12 @@ public class Main {
 						case ('A'):
 							Driver d = new Driver();
 							d.setSystem(system);
-
+/*
 							Driver d2 = new Driver();
 							d2.setSystem(system);
-
+*/
 							while (true) {
-/*
+
 								String name="";
 								while (!d.getUtility().verifyName(name)){
 									System.out.println("Enter your Name");
@@ -92,7 +92,8 @@ public class Main {
 								d.setNationalID(id);
 								d.setDriverLicence(licence);
 
-*/
+
+								/*
 								d2.setName("ezz");
 								d2.setEmail("sd@x.com");
 								d2.setPassword("0123");
@@ -114,7 +115,7 @@ public class Main {
 								d.setPhoneNumber("01234567896");
 								d.setNationalID("01234569871230");
 								d.setDriverLicence("licence");
-
+*/
 
 								//d = (Driver) d.getAccount().signUp(d.getType(),  "name", "01234567896", "sd@x.com", "0123", "01234569871230", "licence");
 								d=(Driver) d.signUp(d);
@@ -125,8 +126,8 @@ public class Main {
 
 									System.out.println("Account created successfully");
 
-									admin.getSystemController().verifyDriver(d);
-									d.addFavouriteArea("milano");
+									//admin.getSystemController().verifyDriver(d);
+									//d.addFavouriteArea("milano");
 
 									break;
 								}
@@ -137,70 +138,70 @@ public class Main {
 						case ('B'):
 							Client c = new Client();
 							c.setSystem(system);
+							/*
 							Client c1 = new Client();
 							c1.setSystem(system);
+							*/
+							String name="";
+							while (!c.getUtility().verifyName(name)){
+								System.out.println("Enter your Name");
+								name = scan.next();
+
+								if(!c.getUtility().verifyName(name)){
+									System.out.println("Invalid Format !!");
+								}
+
+							}
+
+							String phone="";
+							while (!c.getUtility().verifyPhoneNumber(phone)) {
+								System.out.println("Enter your Phone Number");
+								phone = scan.next();
+								if(!c.getUtility().verifyPhoneNumber(phone)){
+									System.out.println("Invalid Phone Number");
+								}
+							}
+
+							String email="";
+							while(!c.getUtility().verifyEmail(email)) {
+								System.out.println("Enter your Email");
+								email = scan.next();
+
+								if (!c.getUtility().verifyEmail(email)) {
+									System.out.println("Wrong Email Format");
+								}
+							}
+
+							System.out.println("Enter your Password");
+							String pass = scan.next();
+
+							String day="";
+							String month="";
+							String year="";
+
+							while (!c.getUtility().verifyDateFormat(day,month,year)){
+								System.out.println("Enter your BirthDay Details :");
+								System.out.print("Enter Day : ");
+								day = scan.next();
+								System.out.print("Enter Month : ");
+								month = scan.next();
+								System.out.print("Enter Year : ");
+								year = scan.next();
+
+								if(!c.getUtility().verifyDateFormat(day,month,year)){
+									System.out.println("Invalid Date Format !!");
+								}
+
+							}
+
+							c.setName(name);
+							c.setEmail(email);
+							c.setPassword(pass);
+							c.setPhoneNumber(phone);
+							c.setBirthDay(new BirthDay(day,month,year));
+
 
 /*
-								String name="";
-								while (!c.getUtility().verifyName(name)){
-									System.out.println("Enter your Name");
-									name = scan.next();
-
-									if(!c.getUtility().verifyName(name)){
-										System.out.println("Invalid Format !!");
-									}
-
-								}
-
-								String phone="";
-								while (!c.getUtility().verifyPhoneNumber(phone)) {
-									System.out.println("Enter your Phone Number");
-									phone = scan.next();
-									if(!c.getUtility().verifyPhoneNumber(phone)){
-										System.out.println("Invalid Phone Number");
-									}
-								}
-
-								String email="";
-								while(!c.getUtility().verifyEmail(email)) {
-									System.out.println("Enter your Email");
-									email = scan.next();
-
-									if (!c.getUtility().verifyEmail(email)) {
-										System.out.println("Wrong Email Format");
-									}
-								}
-
-								System.out.println("Enter your Password");
-								String pass = scan.next();
-
-								String day="";
-								String month="";
-								String year="";
-
-								while (!c.getUtility().verifyDateFormat(day,month,year)){
-									System.out.println("Enter your BirthDay Details :");
-									System.out.print("Enter Day : ");
-									day = scan.next();
-									System.out.print("Enter Month : ");
-									month = scan.next();
-									System.out.print("Enter Year : ");
-									year = scan.next();
-
-									if(!c.getUtility().verifyDateFormat(day,month,year)){
-										System.out.println("Invalid Date Format !!");
-									}
-
-								}
-
-								c.setName(name);
-								c.setEmail(email);
-								c.setPassword(pass);
-								c.setPhoneNumber(phone);
-								c.setBirthDay(new BirthDay(day,month,year));
-
-*/
-
 							c1.setName("yousef");
 							c1.setEmail("sd@x.com");
 							c1.setPassword("2001");
@@ -218,7 +219,7 @@ public class Main {
 							c.setPhoneNumber("01234567896");
 							c.setBirthDay(new BirthDay("13","4","2001"));
 
-
+*/
 							c=(Client) c.signUp(c);
 							//c = (Client) c.getAccount().signUp(c.getType(),  "ali", "01234567896", "sd@x.com", "2020", null, null);
 							//c = (Client) c.getAccount().signUp(c.getType(), name, phone, email, pass, null, null);
