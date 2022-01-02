@@ -77,15 +77,7 @@ public abstract class  Users implements Observer {
 	String getPassword() {
 		return this.password;
 	}
-	/*
-	void setAccount(){
-		this.account=new Account(this);
-	}
 	
-	Account getAccount() {
-		return this.account;
-	}
-	*/
 	abstract void setType();
 
 	String getType() {
@@ -130,28 +122,7 @@ public abstract class  Users implements Observer {
 	RideData getRideData(){
 		return this.rideData;
 	}
-	// abstract Users login(String name,String pass);
 	
-	/*
-	ArrayList<String> getFavouriteAreas() {
-		return this.favouriteAreas;
-	}
-	
-	
-	void addFavouriteArea(String area) {
-		if(!favouriteAreas.contains(area.toLowerCase())) {
-			
-			favouriteAreas.add(area.toLowerCase());
-		}
-	}
-	
-	void removeFavouriteArea(String area) {
-		if(favouriteAreas.contains(area.toLowerCase())) {
-			favouriteAreas.remove(area.toLowerCase());
-		}
-	}
-	*/
-
 	// login method for all users
 	Users login(Users user) {
 		if(user!=null){
