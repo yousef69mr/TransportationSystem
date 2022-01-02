@@ -49,6 +49,13 @@ public class Utility {
         return false;
     }
 
+    boolean verifyNumberOfPassangers(int num){
+        if(num>0&&num<8){
+            return true;
+        }
+        return false;
+    }
+
     boolean match(Ride ride, ArrayList<Ride> rides){
         for (int i=0;i<rides.size();i++) {
             if (rides.get(i).getClient().equals(ride.getClient()) && rides.get(i).getSource().equals(ride.getSource()) && rides.get(i).getDestination().equals(ride.getDestination())) {

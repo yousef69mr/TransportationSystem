@@ -157,13 +157,14 @@ public class Client extends Users {
 
 
 
-				if (ride.getClient().getRide() != null) {
+				if (ride.getClient() != null) {
 					System.out.print("The Request is Completed Successfully\n/******************************/\nDriver Info :\n");
 					ride.getDriver().DisplaySpecificData();
 					System.out.print("/******************************/");
+					ride.getClient().setFirstRide(false);
 				}
 
-				ride.getClient().setFirstRide(false);
+
 				//ride.getDriver().removeRide(ride);
 
 			} else {

@@ -25,7 +25,7 @@ public class RideController {
         ride = new Ride(c, src);
 
         if(!user.getSystem().getDatabase().getAllDrivers().isEmpty()) {
-            
+
             for(int i=0;i<user.getSystem().getDatabase().getAllDrivers().size();i++) {
 
 

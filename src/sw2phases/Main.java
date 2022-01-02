@@ -542,8 +542,18 @@ public class Main {
 										String src = scan.next();
 										System.out.println("Enter your Destination Location");
 										String destination = scan.next();
-										System.out.println("Enter Number of Passengers");
-										int passengerNumber = scan.nextInt();
+										int passengerNumber;
+										while (true) {
+											System.out.println("Enter Number of Passengers [Including YOU]");
+											passengerNumber = scan.nextInt();
+											if(client.getUtility().verifyNumberOfPassangers(passengerNumber)){
+												break;
+											}
+
+											System.out.println("Please Enter a valid Number [1 to 7]");
+
+										}
+
 										ArrayList<Driver> matched =client.getRideController().getAllDriversMatchesItsFavouriteArea(client,src);
 
 										//client.getRideController().requestRide(client,src, destination);
@@ -582,14 +592,17 @@ public class Main {
 
 									case ('F'):
 
+										if(client.getRideData().getOffers()!=null) {
+											client.getRideData().displayOffers();
 
-										client.getRideData().displayOffers();
+											System.out.println("Choose your deal [Price]");
+											int price = scan.nextInt();
 
-										System.out.println("Choose your deal [Price]");
-										int price = scan.nextInt();
-
-										client.getRideData().setRole(1);
-										client.getRideData().setOffer(price);
+											client.getRideData().setRole(1);
+											client.getRideData().setOffer(price);
+										}else{
+											System.out.println("There is no Offers yet :(");
+										}
 										//((Client)client.getRideData().getSpecificObserver(num2-1)).getRideData().getRide().setRideSystem(system);
 										break;
 

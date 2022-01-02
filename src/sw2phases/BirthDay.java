@@ -1,9 +1,5 @@
 package sw2phases;
 
-import java.time.DayOfWeek;
-import java.time.Month;
-import java.time.Year;
-
 public class BirthDay {
     private String day;
     private String month;
