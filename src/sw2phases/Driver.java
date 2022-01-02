@@ -238,38 +238,6 @@ public class Driver extends Users {
 		}
 		return null;
 	}
-
-	/*
-       
-	Driver login(String name, String pass) {
-		if(!super.getSystem().getAllSuspended().contains(super.getSystem().getSpecificClient(name, pass))) {
-			
-			if(super.getSystem().getSpecificDriver(name,pass)!=null) {
-				return super.getSystem().getSpecificDriver(name, pass);
-			}else {
-				System.out.println("UserName or Password are incorrect");
-				return null;
-			}
-		}else {
-			System.out.println("Your Account is Suspended !!");
-			return null;
-		}
-	}
-	*/
-
-	////////////////
-	 /*
-	void setPriceForSpecificRide(float price,int rideNum) {
-		rideController.showRideSourceMatchesFavouriteAreaOfDriver();
-		ArrayList<Ride> selectedRides=super.getSystem().getRideSourceMatchesFavouriteAreaOfDriver(this,super.getSystem().getDatabase().getAllRides());
-		for(int i=0;i<selectedRides.size();i++) {
-			if(selectedRides.get(i).getRideNumber()==rideNum) {
-				selectedRides.get(i).setRidePrice(price);
-			}
-		}
-		
-	}
-	*/
 	void displayRatings() {
 		ArrayList<Ratings> r=new ArrayList<Ratings>(rates);
 		
