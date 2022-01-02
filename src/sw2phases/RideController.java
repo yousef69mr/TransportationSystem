@@ -100,14 +100,13 @@ public class RideController {
         String day=ride.getClient().getBirthDay().getDay();
         String month=ride.getClient().getBirthDay().getMonth();
 
-        //Date birthday=new Date(Integer.parseInt(ride.getClient().getBirthDay().getYear()),Integer.parseInt(ride.getClient().getBirthDay().getMonth()),Integer.parseInt(ride.getClient().getBirthDay().getDay()));
+        
         Date today=new Date();
 
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(today);
 
-       // int todayMonth=calendar.get(Calendar.MONTH);
-       // int todayDay=calendar.get(Calendar.DAY_OF_MONTH);
+    
 
         if(calendar.get(Calendar.DAY_OF_MONTH)==Integer.parseInt(day) && calendar.get(Calendar.MONTH)+1==Integer.parseInt(month)){
             ride.getDiscounts().add(new BirthDayDiscount(new BasicDiscount()));
@@ -129,27 +128,6 @@ public class RideController {
 
     }
 
-/*
-    void requestRide(Client c,String src,String dest) {
-        ride=new Ride(c,src,dest);
-
-        ride.setRideSystem(c.getSystem());
-
-        if(ride.getDriver()!=null){
-            ((Client)user).setRide(ride);
-            user.getSystem().addRide(ride);
-            ride.getDriver().addRide(ride);
-
-            ride.getDriver().setRideController(ride);
-       //     System.out.print("The Request is Completed Successfully\n//");
-            ride.getDriver().DisplaySpecificData();
-            System.out.print("//");
-        }else{
-            System.out.print("No available drivers in your area\n");
-        }
-
-    }
-    */
 
 
     void createPotintialRides(Client c, String src, String dest, ArrayList<Driver> matched,int numOfPassengers){
@@ -195,28 +173,7 @@ public class RideController {
 
 
     }
-/*
-    void requestRide(Client c,String src,String dest) {
 
-        ride = new Ride(c, src, dest);
-
-        ride.setRideSystem(c.getSystem());
-
-        if(ride.getDriver()!=null){
-            ((Client)user).setRide(ride);
-            user.getSystem().addRide(ride);
-            ride.getDriver().addRide(ride);
-
-            ride.getDriver().setRideController(ride);
-            System.out.print("The Request is Completed Successfully\n/////////////////\nDriver Info :\n");
-            ride.getDriver().DisplaySpecificData();
-            System.out.print("///////////////");
-        }else{
-            System.out.print("No available drivers in your area\n");
-        }
-
-    }
-*/
 
     //check if the Entry area is favourite area for the driver
     boolean isFavourite(Ride r, Driver driver) {
@@ -231,31 +188,5 @@ public class RideController {
     }
 
 
-    //***************************** Driver Functions ********************************//
-/*
-    void setPriceForSpecificRide(float price,Ride ride) {
-        ride.setRidePrice(price);
-    }
-*/
-/*
-    // show source Ride that matches with favourite area of Driver
-    void showRideSourceMatchesFavouriteAreaOfDriver(Client c,String src) {
-
-        ArrayList<Driver> drivers=getAllDriversMatchesItsFavouriteArea(c,src);
-
-        ArrayList<Ride> selectedRides=user.getSystemController().getRidesSourceMatchesFavouriteAreaOfDrivers(drivers,ride);
-        for(int i=0;i<selectedRides.size();i++) {
-            selectedRides.get(i).displayRideData();
-        }
-    }
-
-
-
-    ////////////////////////
-    void setPriceForSpecificRide(float price,Ride ride) {
-        showRideSourceMatchesFavouriteAreaOfDriver(ride.getClient(),ride.getSource());
-        ride.setRidePrice(price);
-    }
-
- */
+   
 }
