@@ -92,31 +92,6 @@ public class Main {
 								d.setNationalID(id);
 								d.setDriverLicence(licence);
 
-
-								/*
-								d2.setName("ezz");
-								d2.setEmail("sd@x.com");
-								d2.setPassword("0123");
-								d2.setPhoneNumber("01234567896");
-								d2.setNationalID("01234569871230");
-								d2.setDriverLicence("licence");
-								d2=(Driver) d2.signUp(d2);
-
-
-								System.out.println("Account created successfully");
-
-								admin.getSystemController().verifyDriver(d2);
-								d2.addFavouriteArea("milano");
-
-
-								d.setName("ahmed");
-								d.setEmail("sd@x.com");
-								d.setPassword("2019");
-								d.setPhoneNumber("01234567896");
-								d.setNationalID("01234569871230");
-								d.setDriverLicence("licence");
-*/
-
 								//d = (Driver) d.getAccount().signUp(d.getType(),  "name", "01234567896", "sd@x.com", "0123", "01234569871230", "licence");
 								d=(Driver) d.signUp(d);
 							//	d = (Driver) d.getAccount().signUp(d.getType(),  name,phone, email, pass, id, licence);
@@ -201,25 +176,6 @@ public class Main {
 							c.setBirthDay(new BirthDay(day,month,year));
 
 
-/*
-							c1.setName("yousef");
-							c1.setEmail("sd@x.com");
-							c1.setPassword("2001");
-							c1.setPhoneNumber("01234567896");
-							c1.setBirthDay(new BirthDay("2","1","2001"));
-
-
-							c1=(Client) c1.signUp(c1);
-
-							System.out.println("Account created successfully");
-
-							c.setName("ali");
-							c.setEmail("sd@x.com");
-							c.setPassword("2020");
-							c.setPhoneNumber("01234567896");
-							c.setBirthDay(new BirthDay("13","4","2001"));
-
-*/
 							c=(Client) c.signUp(c);
 							//c = (Client) c.getAccount().signUp(c.getType(),  "ali", "01234567896", "sd@x.com", "2020", null, null);
 							//c = (Client) c.getAccount().signUp(c.getType(), name, phone, email, pass, null, null);
@@ -228,8 +184,6 @@ public class Main {
 
 
 							System.out.println("Account created successfully");
-
-
 
 
 							break;
