@@ -28,20 +28,6 @@ public class Account {
 
 	}
 
-
-	/*
-// sign up method for all users
-	Users signUp(String type,String name,String phone,String email,String pass,String id,String licence){
-		if(type.equalsIgnoreCase("driver")) {
-			return user.getSystem().createDriverAccount(name, phone, email, pass, id, licence);
-		}else if(type.equalsIgnoreCase("client")){
-			return user.getSystem().createClientAccount(name,phone,email,pass);
-		}else{
-			return null;
-		}
-
-	}
-*/
 	String getName() {
 		return this.userName;
 	}
